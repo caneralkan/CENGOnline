@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="156dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="132dp"
         android:orientation="vertical"
         android:padding="@dimen/default_padding">
 
@@ -26,7 +27,27 @@
             android:textColor="@color/colorText"
             android:textSize="@dimen/app_name_size" />
 
+        <EditText
+            android:id="@+id/nameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_name"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="@string/name"
+            android:nextFocusDown="@id/emailText"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorHint" />
 
+        <EditText
+            android:id="@+id/surnameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_name"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="@string/surname"
+            android:nextFocusDown="@id/emailText"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorHint" />
 
 
         <EditText
@@ -55,22 +76,12 @@
 
 
         <Button
-            android:id="@+id/button_signin"
+            android:id="@+id/button_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_button_register"
-            android:onClick="signInClicked"
-            android:text="@string/login"
-            android:textAllCaps="false"
-            android:textColor="@color/colorText" />
-
-        <Button
-            android:id="@+id/button_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_button_register"
-            android:onClick="signUpClicked"
-            android:text="@string/signup"
+            android:onClick="registerClicked"
+            android:text="@string/register"
             android:textAllCaps="false"
             android:textColor="@color/colorText" />
 
@@ -82,4 +93,5 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
+
 </RelativeLayout>
