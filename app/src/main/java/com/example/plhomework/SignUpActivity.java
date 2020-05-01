@@ -78,8 +78,8 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onSuccess(DocumentReference documentReference) {
                             Toast.makeText(SignUpActivity.this,"User Created", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(SignUpActivity.this, FeedActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                            finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -101,7 +101,7 @@ public class SignUpActivity extends AppCompatActivity {
             });
         }
         else {
-            if(!(email.endsWith("co.edu.tr") || email.endsWith("ogr.co.edu.tr"))){
+            if(!(email.endsWith("co.edu.tr") || email.endsWith("ogr.co.edu.tr")) && !(email.matches("") || password.matches("") || name.matches("") || surname.matches("")) ){
                 Toast.makeText(SignUpActivity.this, "Your email should end with co.edu.tr or ogr.co.edu.tr !", Toast.LENGTH_LONG).show();
             }
             else
