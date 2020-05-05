@@ -10,8 +10,8 @@ public class Teacher extends User {
         this.coursesTeacherTeach = coursesTeacherTeach;
     }
 
-    public Teacher(String name, String surname, String email,boolean isStudent) {
-        super(name, surname, email,isStudent);
+    public Teacher(String name, String surname, String email) {
+        super(name, surname, email,false);
     }
 
     public ArrayList<Course> getCoursesTeacherTeach() {

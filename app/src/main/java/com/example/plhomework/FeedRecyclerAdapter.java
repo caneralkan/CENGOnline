@@ -21,8 +21,10 @@ public class FeedRecyclerAdapter extends RecyclerView.Adapter<FeedRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FeedRecyclerHolder holder, int position) {
-        holder.courseName.setText("");
-        holder.courseID.setText("");
+        System.out.println("asdsadj");
+        System.out.println(LoginActivity.allCourses.get(position).getCourseName());
+        holder.courseName.setText(LoginActivity.allCourses.get(position).getCourseName());
+        holder.courseID.setText(LoginActivity.allCourses.get(position).getCourseID());
         //holder.imagelv.setImageBitmap();
     }
     public class FeedRecyclerHolder extends RecyclerView.ViewHolder{
@@ -37,6 +39,6 @@ public class FeedRecyclerAdapter extends RecyclerView.Adapter<FeedRecyclerAdapte
     }
     @Override
     public int getItemCount() {
-        return 0;
+        return LoginActivity.allCourses.size();
     }
 }

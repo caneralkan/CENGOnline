@@ -12,13 +12,19 @@ public class Course {
         this.courseName = courseName;
         this.courseID = courseID;
         this.teacher = teacher;
+        this.announcements=new ArrayList<>();
     }
-
-    public Course(String courseName, String courseID, Student[] students, Teacher teacher) {
+    public Course(String courseName, String courseID, String teacherName,String teacherSurname,String teacherEmail) {
+        this.courseName = courseName;
+        this.courseID = courseID;
+        this.teacher = new Teacher(teacherName,teacherSurname,teacherEmail);
+        this.announcements=new ArrayList<>();
+    }
+    public Course(String courseName, String courseID, Student[] students, String teacherName,String teacherSurname,String teacherEmail) {
         this.courseName = courseName;
         this.courseID = courseID;
         this.students = students;
-        this.teacher = teacher;
+        this.teacher = new Teacher(teacherName,teacherSurname,teacherEmail);
         this.announcements=new ArrayList<>();
     }
     public void addAnnouncement(String string){

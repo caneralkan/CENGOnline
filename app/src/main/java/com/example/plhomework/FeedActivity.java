@@ -2,6 +2,8 @@ package com.example.plhomework;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +28,7 @@ public class FeedActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     ArrayList<String> courseName;
     ArrayList<String> courseID;
-
+    static FeedRecyclerAdapter feedRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,19 +37,28 @@ public class FeedActivity extends AppCompatActivity {
         firebaseUser=firebaseAuth.getCurrentUser();
         //System.out.println(firebaseUser.getEmail());//emaile göre tekrar öğrenci öğretmen ayrımı yapılabilir. ona göre dinamik layout?
         firebaseFirestore=FirebaseFirestore.getInstance();
-
+        RecyclerView recyclerView=findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       // System.out.println(LoginActivity.allCourses.get(0).getCourseName());
+        feedRecyclerAdapter=new FeedRecyclerAdapter();
+        recyclerView.setAdapter(feedRecyclerAdapter);
+        feedRecyclerAdapter.notifyDataSetChanged();
     }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        if(LoginActivity.currentUser!=null &&  LoginActivity.currentUser.isStudent()){
+            MenuItem addCourse = menu.findItem(R.id.AddCourseMenu);
+            addCourse.setVisible(false);
 
+        }
+        return true;
+    }
     //Connecting menu to this activity
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {//öğreenci/öğretmen ayrımı
+    public boolean onCreateOptionsMenu(Menu menu) {
         //Connecting xml file
-         if(LoginActivity.currentUser!=null &&  LoginActivity.currentUser.isStudent()){
-             System.out.println("burda işte be");
-             MenuItem addCourse = menu.findItem(R.id.AddCourseMenu);
-             addCourse.setVisible(false);
 
-         }
         MenuInflater menuInflater=getMenuInflater();
         menuInflater.inflate(R.menu.cengonline_options_menu,menu);
 

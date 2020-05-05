@@ -71,12 +71,12 @@ public class SignUpActivity extends AppCompatActivity {
                     if(email.endsWith("ogr.co.edu.tr")){
                         postUser.put("userType","student");
                          user=new Student(name,surname,email,true);
-                        LoginActivity.allUsers.add(user);
+                        //LoginActivity.allUsers.add(user);
                     }
                     else{
                         postUser.put("userType","teacher");
-                        user=new Teacher(name,surname,email,false);
-                        LoginActivity.allUsers.add(user);
+                        user=new Teacher(name,surname,email);
+                        //LoginActivity.allUsers.add(user);
                     }
                     LoginActivity.currentUser=user;
 
