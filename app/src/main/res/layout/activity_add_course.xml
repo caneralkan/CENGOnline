@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddCourseActivity">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="132dp"
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:text="Add Course"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/app_name_size" />
+
+        <EditText
+            android:id="@+id/courseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_class_black_24dp"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Course Name"
+            android:nextFocusDown="@id/courseID"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorHint" />
+
+        <EditText
+            android:id="@+id/courseID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_class_black_24dp"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Course ID"
+            android:nextFocusDown="@id/emailText"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorHint" />
+
+
+        <EditText
+            android:id="@+id/teacherEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_email"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Teacher Email"
+            android:inputType="textEmailAddress"
+            android:nextFocusDown="@id/passwordText"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorHint" />
+
+
+
+
+
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_register"
+            android:onClick="addCourseClicked"
+            android:text="ADD COURSE"
+            android:textColor="@color/colorText" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

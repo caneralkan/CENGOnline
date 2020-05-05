@@ -7,6 +7,13 @@ public class Course {
     private Student[] students;
     private Teacher teacher;
     ArrayList<String> announcements;
+
+    public Course(String courseName, String courseID, Teacher teacher) {
+        this.courseName = courseName;
+        this.courseID = courseID;
+        this.teacher = teacher;
+    }
+
     public Course(String courseName, String courseID, Student[] students, Teacher teacher) {
         this.courseName = courseName;
         this.courseID = courseID;

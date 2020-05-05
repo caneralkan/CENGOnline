@@ -1,38 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FeedActivity">
 
-    <LinearLayout
+
+    <!--
+    <Button
+        android:id="@+id/button_courses"
+        android:layout_width="287dp"
+        android:layout_height="66dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_button_register"
+        android:drawableLeft="@drawable/ic_class_black_24dp"
+        android:onClick="coursesClicked"
+        android:text="COURSES"
+        android:textAlignment="gravity"
+        android:textAllCaps="true"
+        android:textColor="@color/colorText" />
+
+    <Button
+        android:id="@+id/button_announcements"
+        android:layout_width="184dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="168dp"
+        android:background="@drawable/bg_button_register"
+        android:drawableLeft="@drawable/ic_announcement"
+        android:onClick="announcementsClicked"
+        android:text="ANNOUNCEMENTS"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorText" />
+
+    <Button
+        android:id="@+id/button_assignments"
+        android:layout_width="337dp"
+        android:layout_height="72dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="309dp"
+        android:background="@drawable/bg_button_register"
+        android:drawableLeft="@drawable/ic_assignment_black_24dp"
+        android:onClick="assignmentsClicked"
+        android:text="ASSIGNMENTS"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorText" />
+        -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/txtname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Name"
-            android:text="" />
-
-        <EditText
-            android:id="@+id/txtsurname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Surname"
-            android:text="" />
-
-        <Button
-            android:id="@+id/btnsend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Send" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent" />
+</androidx.appcompat.widget.LinearLayoutCompat>

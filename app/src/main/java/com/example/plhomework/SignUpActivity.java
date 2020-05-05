@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -26,7 +27,6 @@ public class SignUpActivity extends AppCompatActivity {
     Button signUpButton;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intent= getIntent();
         String email=intent.getStringExtra("email");
         emailText=findViewById(R.id.emailText);
+
         if (!email.matches(""))
          emailText.setText(email);
 
@@ -66,12 +67,18 @@ public class SignUpActivity extends AppCompatActivity {
                     postUser.put("password",password);
                     postUser.put("name",name);
                     postUser.put("surname",surname);
+                    User user;
                     if(email.endsWith("ogr.co.edu.tr")){
                         postUser.put("userType","student");
+                         user=new Student(name,surname,email,true);
+                        LoginActivity.allUsers.add(user);
                     }
-                    else if(email.endsWith("co.edu.tr")){
+                    else{
                         postUser.put("userType","teacher");
+                        user=new Teacher(name,surname,email,false);
+                        LoginActivity.allUsers.add(user);
                     }
+                    LoginActivity.currentUser=user;
 
                     firebaseFirestore.collection("Users").add(postUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
