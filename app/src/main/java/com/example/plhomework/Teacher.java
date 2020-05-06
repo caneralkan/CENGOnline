@@ -3,25 +3,34 @@ package com.example.plhomework;
 import java.util.ArrayList;
 
 public class Teacher extends User {
-    ArrayList<Course> coursesTeacherTeach;
 
-    public Teacher(String name, String surname, String email,boolean isStudent, ArrayList<Course> coursesTeacherTeach) {
+    public Teacher(String name, String surname, String email,boolean isStudent) {
         super(name, surname, email,isStudent);
-        this.coursesTeacherTeach = coursesTeacherTeach;
+    }
+
+    public Teacher(String name, String surname, String email, boolean isStudent, ArrayList<Course> courses) {
+        super(name, surname, email, isStudent, courses);
+    }
+
+    @Override
+    protected void enrollCourse(Course course) {
+        courses.add(course);
+        course.setTeacher(this);
+    }
+
+    @Override
+    protected void removeFromCourse(Course course) {
+        courses.remove(course);
+    }
+
+    @Override
+    protected boolean isEnrolled(Course course) {
+
+        return courses.contains(course);
     }
 
     public Teacher(String name, String surname, String email) {
         super(name, surname, email,false);
     }
 
-    public ArrayList<Course> getCoursesTeacherTeach() {
-        return coursesTeacherTeach;
-    }
-
-    public void setCoursesTeacherTeach(ArrayList<Course> coursesTeacherTeach) {
-        this.coursesTeacherTeach = coursesTeacherTeach;
-    }
-    public void addCourseToTeacher(Course course){
-        coursesTeacherTeach.add(course);
-    }
 }

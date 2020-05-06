@@ -1,20 +1,26 @@
 package com.example.plhomework;
 
+import java.util.ArrayList;
+
 public abstract class User {
     protected String name,surname,email;
     protected boolean isStudent;
-
-    public User(String name, String surname, String email) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-    }
+    public  ArrayList<Course> courses;
 
     public User(String name, String surname, String email, boolean isStudent) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.isStudent = isStudent;
+
+        this.courses=new ArrayList<>();
+    }
+    public User(String name, String surname, String email, boolean isStudent,ArrayList<Course> courses) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.isStudent = isStudent;
+        this.courses=courses;
     }
 
     public boolean isStudent() {
@@ -48,4 +54,10 @@ public abstract class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    protected abstract void enrollCourse(Course course);
+    protected abstract void removeFromCourse(Course course);
+    protected abstract boolean isEnrolled(Course course);
+
+
 }

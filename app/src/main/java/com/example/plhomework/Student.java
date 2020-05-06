@@ -3,22 +3,30 @@ package com.example.plhomework;
 import java.util.ArrayList;
 
 public class Student extends User {
-    ArrayList<Course> coursesStudentIn;
 
-    public Student(String name, String surname, String email, ArrayList<Course> coursesStudentIn) {
-        super(name, surname, email);
-        this.coursesStudentIn = coursesStudentIn;
+    public Student(String name, String surname, String email, ArrayList<Course> courses) {
+        super(name, surname, email,false,courses);
     }
-
+    public Student(String name, String surname, String email) {
+        super(name, surname, email,false);
+    }
     public Student(String name, String surname, String email,boolean isStudent) {
         super(name, surname, email,isStudent);
     }
-    public ArrayList<Course> getCoursesStudentIn() {
-        return coursesStudentIn;
-    }
 
-    public void setCoursesStudentIn(ArrayList<Course> coursesStudentIn) {
-        this.coursesStudentIn = coursesStudentIn;
+    @Override
+    protected void enrollCourse(Course course) {
+        courses.add(course);
+        course.addStudentToCourse(this);
     }
+    @Override
+    protected void removeFromCourse(Course course) {
+        courses.remove(course);
+        course.removeStudentFromCourse(this);
+    }
+    @Override
+    protected boolean isEnrolled(Course course) {
 
+        return courses.contains(course);
+    }
 }

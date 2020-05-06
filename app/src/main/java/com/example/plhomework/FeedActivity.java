@@ -1,10 +1,13 @@
 package com.example.plhomework;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,8 +30,6 @@ public class FeedActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseFirestore firebaseFirestore;
-    ArrayList<String> courseName;
-    ArrayList<String> courseID;
     static FeedRecyclerAdapter feedRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +37,16 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
-        //System.out.println(firebaseUser.getEmail());//emaile göre tekrar öğrenci öğretmen ayrımı yapılabilir. ona göre dinamik layout?
         firebaseFirestore=FirebaseFirestore.getInstance();
         RecyclerView recyclerView=findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-       // System.out.println(LoginActivity.allCourses.get(0).getCourseName());
-        feedRecyclerAdapter=new FeedRecyclerAdapter();
+        feedRecyclerAdapter=new FeedRecyclerAdapter(FeedActivity.this);
         recyclerView.setAdapter(feedRecyclerAdapter);
-        feedRecyclerAdapter.notifyDataSetChanged();
+        //feedRecyclerAdapter.notifyDataSetChanged();
+
+        for (Course courseP:LoginActivity.currentUser.courses){
+            System.out.println("abinin kursları2: "+ courseP.getCourseName());
+        }
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
@@ -78,6 +82,42 @@ public class FeedActivity extends AppCompatActivity {
                 Intent intentToAddCourse=new Intent(FeedActivity.this,AddCourseActivity.class);
                 startActivity(intentToAddCourse);
                 return true;
+            case R.id.enrollMenu:
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+                alert.setTitle("Enroll To Course");
+                alert.setMessage("Enter Course ID");
+
+                final EditText input = new EditText(this);
+                alert.setView(input);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Course course=LoginActivity.retrieveCoursebyCourseID(input.getText().toString());
+                        if(course==null){
+                            Toast.makeText(FeedActivity.this,"No courses found with that ID. Please check your Course ID!",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            if (LoginActivity.currentUser.isStudent()) {
+                                LoginActivity.currentUser.enrollCourse(course);
+                                course.addStudentToCourse((Student) LoginActivity.currentUser);
+                            } else {
+                                course.setTeacher((Teacher) LoginActivity.currentUser);
+                            }
+                            feedRecyclerAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+                alert.show();
+
+            return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
