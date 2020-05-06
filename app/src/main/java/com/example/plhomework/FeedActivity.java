@@ -18,11 +18,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class FeedActivity extends AppCompatActivity {
     //FeedActivity
@@ -47,6 +53,21 @@ public class FeedActivity extends AppCompatActivity {
         for (Course courseP:LoginActivity.currentUser.courses){
             System.out.println("abinin kursları2: "+ courseP.getCourseName());
         }
+        CollectionReference collectionReference=firebaseFirestore.collection("Users");
+        collectionReference.whereEqualTo("name","ogrenc").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                    Map<String,Object> data=snapshot.getData();
+                    String name= (String) data.get("password");
+                    System.out.println("namemiz: "+name);
+                }
+
+                System.out.println("");
+            }
+        });
+
+
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
