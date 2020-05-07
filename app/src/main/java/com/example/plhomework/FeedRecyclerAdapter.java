@@ -11,6 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Map;
+
 public class FeedRecyclerAdapter extends RecyclerView.Adapter<FeedRecyclerAdapter.FeedRecyclerHolder> {
 
 
@@ -28,22 +37,28 @@ public class FeedRecyclerAdapter extends RecyclerView.Adapter<FeedRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeedRecyclerHolder holder, int position) {
-        holder.itemView.setVisibility(View.INVISIBLE);
-        if(!LoginActivity.currentUser.isStudent() || (LoginActivity.currentUser.isStudent()&& LoginActivity.currentUser.isEnrolled(LoginActivity.allCourses.get(position)))){
-        holder.courseName.setText(LoginActivity.allCourses.get(position).getCourseName());
-        holder.courseID.setText(LoginActivity.allCourses.get(position).getCourseID());
-        //holder.imagelv.setImageBitmap();
-        holder.itemView.setVisibility(View.VISIBLE);
-        }
+    public void onBindViewHolder(@NonNull final FeedRecyclerHolder holder, final int position) {
+        FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+        CollectionReference collectionReference=firebaseFirestore.collection("Courses");
+        collectionReference.whereEqualTo("courseID",LoginActivity.allCourses.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for(DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                    Map<String,Object> data=snapshot.getData();
+
+                    holder.courseName.setText((String) data.get("courseName"));
+                    holder.courseID.setText((String) data.get("courseID"));
+                }
+            }
+        });
+
+
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClickListener(View v, int position) {
-                String courseNameCD=LoginActivity.allCourses.get(position).getCourseName();
-                String courseIDCD=LoginActivity.allCourses.get(position).getCourseID();
+                String courseIDCD=LoginActivity.allCourses.get(position);
                 Intent intent =new Intent(context,CourseDetailActivity.class);
-                intent.putExtra("courseName",courseNameCD);
                 intent.putExtra("courseID",courseIDCD);
                 int i=position;
                 intent.putExtra("coursePosition",i);

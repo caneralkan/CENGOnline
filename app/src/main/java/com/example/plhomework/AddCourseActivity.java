@@ -58,8 +58,8 @@ public class AddCourseActivity extends AppCompatActivity {
                 Toast.makeText(AddCourseActivity.this,"Course Created", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(AddCourseActivity.this, FeedActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                Course course=new Course(courseName.getText().toString(),courseID.getText().toString(),teacherName.getText().toString(),teacherSurname.getText().toString(),teacherEmail.getText().toString());
-                LoginActivity.allCourses.add(course);
+                //Course course=new Course(courseName.getText().toString(),courseID.getText().toString(),teacherName.getText().toString(),teacherSurname.getText().toString(),teacherEmail.getText().toString());
+                LoginActivity.allCourses.add(courseID.getText().toString());
                 FeedActivity.feedRecyclerAdapter.notifyDataSetChanged();
                 startActivity(intent);
             }

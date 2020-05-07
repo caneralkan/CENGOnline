@@ -20,14 +20,18 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class FeedActivity extends AppCompatActivity {
@@ -50,22 +54,6 @@ public class FeedActivity extends AppCompatActivity {
         recyclerView.setAdapter(feedRecyclerAdapter);
         //feedRecyclerAdapter.notifyDataSetChanged();
 
-        for (Course courseP:LoginActivity.currentUser.courses){
-            System.out.println("abinin kursları2: "+ courseP.getCourseName());
-        }
-        CollectionReference collectionReference=firebaseFirestore.collection("Users");
-        collectionReference.whereEqualTo("name","ogrenc").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
-                    Map<String,Object> data=snapshot.getData();
-                    String name= (String) data.get("password");
-                    System.out.println("namemiz: "+name);
-                }
-
-                System.out.println("");
-            }
-        });
 
 
     }
@@ -114,20 +102,50 @@ public class FeedActivity extends AppCompatActivity {
 
                 alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        Course course=LoginActivity.retrieveCoursebyCourseID(input.getText().toString());
-                        if(course==null){
-                            Toast.makeText(FeedActivity.this,"No courses found with that ID. Please check your Course ID!",Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            if (LoginActivity.currentUser.isStudent()) {
+                        CollectionReference collectionReference=firebaseFirestore.collection("Courses");
+                        collectionReference.whereEqualTo("courseID",input.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for (DocumentSnapshot snapshot:task.getResult().getDocuments()) {
+                                    Map<String, Object> data = snapshot.getData();
+                                    String course=(String)data.get("courseName");
+                                    if (course == null) {
+                                        System.out.println("alalala");
+                                        Toast.makeText(FeedActivity.this, "No courses found with that ID. Please check your Course ID!", Toast.LENGTH_LONG).show();
+                                    }
+                                    else if(LoginActivity.allCourses.contains(input.getText().toString())){
+
+                                        System.out.println("ververver");
+                                        Toast.makeText(FeedActivity.this, "You are already enrolled to that course!", Toast.LENGTH_LONG).show();
+
+                                    }
+                                    else {//kursa kayıt olma.
+                                        CollectionReference collectionReference = firebaseFirestore.collection("Course_User");
+                                        HashMap<String, String> enrollUser = new HashMap<>();
+                                        enrollUser.put("email", firebaseUser.getEmail());
+                                        enrollUser.put("courseID", input.getText().toString());
+                                        enrollUser.put("date", Timestamp.now().toDate().toString());
+                                        collectionReference.add(enrollUser).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                LoginActivity.allCourses.add(input.getText().toString());
+                                                Toast.makeText(FeedActivity.this,"Enrolled", Toast.LENGTH_LONG).show();
+                                                feedRecyclerAdapter.notifyDataSetChanged();
+                                            }
+                                        });
+                            /*if (LoginActivity.currentUser.isStudent()) {
                                 LoginActivity.currentUser.enrollCourse(course);
                                 course.addStudentToCourse((Student) LoginActivity.currentUser);
                             } else {
                                 course.setTeacher((Teacher) LoginActivity.currentUser);
-                            }
-                            feedRecyclerAdapter.notifyDataSetChanged();
+                            }*/
 
-                        }
+
+                                    }
+                                }
+                            }
+                        });
+
                     }
                 });
 
