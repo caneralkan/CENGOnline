@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -43,4 +46,25 @@ public class CourseDetailActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        if(LoginActivity.currentUser!=null &&  LoginActivity.currentUser.isStudent()){
+            MenuItem addCourse = menu.findItem(R.id.EditCourse);
+            addCourse.setVisible(false);
+
+        }
+        return true;
+    }
+    //Connecting menu to this activity
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Connecting xml file
+
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.course_detail_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
 }
