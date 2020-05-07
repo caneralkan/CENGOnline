@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CourseDetailActivity"
-            android:parentActivityName=".FeedActivity"></activity>
+        <activity android:name=".EditCourseActivity"></activity>
+        <activity
+            android:name=".CourseDetailActivity"
+            android:parentActivityName=".FeedActivity" />
         <activity android:name=".AddCourseActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity">

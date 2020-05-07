@@ -60,8 +60,6 @@ public class FeedRecyclerAdapter extends RecyclerView.Adapter<FeedRecyclerAdapte
                 String courseIDCD=LoginActivity.allCourses.get(position);
                 Intent intent =new Intent(context,CourseDetailActivity.class);
                 intent.putExtra("courseID",courseIDCD);
-                int i=position;
-                intent.putExtra("coursePosition",i);
                 context.startActivity(intent);
             }
         });
