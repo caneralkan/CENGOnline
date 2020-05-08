@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_class_black_24dp"
             android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Course Name"
             android:nextFocusDown="@id/courseID"
-            android:text="Course Name"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorHint" />
 
@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_class_black_24dp"
             android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Course ID"
             android:nextFocusDown="@id/teacherName"
-            android:text="Course ID"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorHint" />
 
@@ -59,9 +59,9 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_name"
             android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Teacher Name"
             android:inputType="textEmailAddress"
             android:nextFocusDown="@id/passwordText"
-            android:text="Teacher Name"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorHint" />
 
@@ -71,9 +71,9 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_name"
             android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Teacher Surname"
             android:inputType="textEmailAddress"
             android:nextFocusDown="@id/passwordText"
-            android:text="Teacher Surname"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorHint" />
 
@@ -83,16 +83,12 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Teacher Email"
             android:inputType="textEmailAddress"
             android:nextFocusDown="@id/passwordText"
-            android:text="Teacher Email"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorHint" />
-
-
-
-
-
+        
         <Button
             android:id="@+id/button_register"
             android:layout_width="match_parent"

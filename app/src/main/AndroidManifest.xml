@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditCourseActivity"></activity>
+        <activity android:name=".EditAnnouncementActivity"></activity>
+        <activity android:name=".AnnouncementDetailActivity" />
+        <activity
+            android:name=".AddAnnouncementActivity"
+            android:parentActivityName=".CourseDetailActivity" />
+        <activity android:name=".EditCourseActivity" />
         <activity
             android:name=".CourseDetailActivity"
             android:parentActivityName=".FeedActivity" />

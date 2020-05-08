@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -103,23 +105,15 @@ public class FeedActivity extends AppCompatActivity {
                 alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         CollectionReference collectionReference=firebaseFirestore.collection("Courses");
-                        collectionReference.whereEqualTo("courseID",input.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        collectionReference.whereEqualTo("courseID",input.getText().toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                for (DocumentSnapshot snapshot:task.getResult().getDocuments()) {
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()) {
                                     Map<String, Object> data = snapshot.getData();
                                     String course=(String)data.get("courseName");
-                                    if (course == null) {
-                                        System.out.println("alalala");
-                                        Toast.makeText(FeedActivity.this, "No courses found with that ID. Please check your Course ID!", Toast.LENGTH_LONG).show();
-                                    }
-                                    else if(LoginActivity.allCourses.contains(input.getText().toString())){
+                                    System.out.println(course);
 
-                                        System.out.println("ververver");
-                                        Toast.makeText(FeedActivity.this, "You are already enrolled to that course!", Toast.LENGTH_LONG).show();
-
-                                    }
-                                    else {//kursa kayıt olma.
+                                  //kursa kayıt olma.
                                         CollectionReference collectionReference = firebaseFirestore.collection("Course_User");
                                         HashMap<String, String> enrollUser = new HashMap<>();
                                         enrollUser.put("email", firebaseUser.getEmail());
@@ -141,8 +135,23 @@ public class FeedActivity extends AppCompatActivity {
                             }*/
 
 
-                                    }
+
                                 }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                 if(LoginActivity.allCourses.contains(input.getText().toString())){
+
+                                    System.out.println("ververver");
+                                    Toast.makeText(FeedActivity.this, "You are already enrolled to that course!", Toast.LENGTH_LONG).show();
+
+                                }
+                                 else {
+
+                                     System.out.println("alalala");
+                                     Toast.makeText(FeedActivity.this, "No courses found with that ID. Please check your Course ID!", Toast.LENGTH_LONG).show();
+                                 }
                             }
                         });
 

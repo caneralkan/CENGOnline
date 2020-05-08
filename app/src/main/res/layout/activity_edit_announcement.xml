@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditAnnouncementActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="132dp"
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/app_name_size"
+
+            android:text="Edit Announcement"/>
+
+        <EditText
+            android:id="@+id/annTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_announcement"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Announcement Title"
+            android:nextFocusDown="@id/annContext"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorHint" />
+
+
+        <EditText
+            android:id="@+id/annContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_announcement"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Announcement Context"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorHint"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_register"
+            android:onClick="editAnnouncementClicked"
+            android:text="EDIT Announcement"
+            android:textColor="@color/colorText" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddAnnouncementActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="132dp"
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding"
+        tools:ignore="ExtraText">
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/app_name_size"
+
+        android:text="Create Announcement"/>
+
+    <EditText
+        android:id="@+id/announcementTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_class_black_24dp"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:nextFocusDown="@id/courseID"
+        android:text="Announcement Title"
+        android:textColorHint="@color/colorHint" />
+
+        <EditText
+            android:id="@+id/announcementContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:nextFocusDown="@id/button_announcement"
+            android:textColorHint="@color/colorHint"
+            android:textColor="@color/colorText"
+            android:drawableLeft="@drawable/ic_class_black_24dp"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:text="Put your announcement here."/><![CDATA[
+
+        >]]>
+        <Button
+            android:id="@+id/button_announcement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_register"
+            android:onClick="addAnnouncementClicked"
+            android:text="Add announcement"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+
+</RelativeLayout>

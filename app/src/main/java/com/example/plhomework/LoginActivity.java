@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,9 +39,9 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
-    public static ArrayList<User> allUsers=new ArrayList<>();
     public static ArrayList<String> allCourses=new ArrayList<>();
     public static User currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
         allCourses=new ArrayList<>();
-        allUsers=new ArrayList<>();
         if(firebaseUser!= null){
             //setUserFromCurrentUser(firebaseUser.getEmail());//ve bu
             CollectionReference collectionReference=firebaseFirestore.collection("Users");
@@ -207,67 +208,7 @@ public class LoginActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
     }
-    public void fillCourseListFromFirestore(){
-        CollectionReference collectionReference=firebaseFirestore.collection("Course_User");
-        /*collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots!=null){
-                    for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()){
-                        Map<String,Object> data=snapshot.getData();
 
-                        String courseName=(String) data.get("courseName");
-                        String courseID=(String) data.get("courseID");
-                        String teacherName=(String) data.get("teacherName");
-                        String teacherSurname=(String) data.get("teacherSurname");
-                        String teacherEmail=(String) data.get("teacherEmail");
-//                        LoginActivity.allCourses.
-
-                        Course course=new Course(courseName,courseID,new Teacher(teacherName,teacherSurname,teacherEmail));
-                        LoginActivity.allCourses.add(course);
-                        System.out.println("Course Name:"+ courseName);
-                        //System.out.println(LoginActivity.allCourses.get(0).getCourseID());
-
-                    }
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-                    Toast.makeText(LoginActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
-
-            }
-        });
-        return true;*/
-        collectionReference.whereEqualTo("email",firebaseUser.getEmail()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (e!=null){
-                    Toast.makeText(LoginActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
-                }
-                if(queryDocumentSnapshots!=null){
-                    for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()){
-                        Map<String,Object> data=snapshot.getData();
-
-                        /*String courseName=(String) data.get("courseName");
-                        String courseID=(String) data.get("courseID");
-                        String teacherName=(String) data.get("teacherName");
-                        String teacherSurname=(String) data.get("teacherSurname");
-                        String teacherEmail=(String) data.get("teacherEmail");
-
-
-                        Course course=new Course(courseName,courseID,new Teacher(teacherName,teacherSurname,teacherEmail));
-                        LoginActivity.allCourses.add(course);
-                        System.out.println("Course Name:"+ courseName);
-                        System.out.println(LoginActivity.allCourses.get(0).getCourseID());*/
-
-                        //BURDA Course_User tablosundan çektiğimiz courseIDleri tutacağız.
-                    }
-                }
-            }
-        });
-    }
 
     public void setUserFromCurrentUser(final String email2){//this fuction get users' email and read users data from database and set user
         CollectionReference collectionReference=firebaseFirestore.collection("Users");

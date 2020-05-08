@@ -55,11 +55,11 @@ public class EditCourseActivity extends AppCompatActivity {
                      documentId= snapshot.getId();
                     System.out.println(documentId);
                     Map<String, Object> data = snapshot.getData();
-                    courseName.setHint((String)data.get("courseName"));
-                    courseID.setHint((String)data.get("courseID"));
-                    teacherEmail.setHint((String)data.get("teacherEmail"));
-                    teacherName.setHint((String)data.get("teacherName"));
-                    teacherSurname.setHint((String)data.get("teacherSurname"));
+                    courseName.setText((String)data.get("courseName"));
+                    courseID.setText((String)data.get("courseID"));
+                    teacherEmail.setText((String)data.get("teacherEmail"));
+                    teacherName.setText((String)data.get("teacherName"));
+                    teacherSurname.setText((String)data.get("teacherSurname"));
 
                 }
             }

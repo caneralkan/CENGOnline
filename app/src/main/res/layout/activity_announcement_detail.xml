@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnnouncementDetailActivity">
+    <ImageView
+        android:id="@+id/announcementImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_announcement"
+        android:layout_marginTop="15dp"
+        />
+
+    <TextView
+        android:id="@+id/announcementTtl"
+        android:layout_width="266dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/announcementImg"
+        android:layout_toRightOf="@+id/announcementImg"
+        android:text="Announcement Title"
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+
+        />
+    <TextView
+        android:id="@+id/announcementDt"
+        android:text="Announcement Date"
+
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/announcementImg"
+        android:layout_toRightOf="@+id/announcementImg"
+        android:layout_width="266dp"
+        android:layout_height="53dp"
+        android:layout_below="@+id/announcementTtl"
+        />
+
+    <TextView
+        android:id="@+id/announcementCntxt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/announcementDt"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+
+        android:text="Announcement"
+        android:textColor="#a9a9a9"
+        android:textSize="18sp"></TextView>
+
+</RelativeLayout>

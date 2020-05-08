@@ -40,8 +40,19 @@
         android:layout_toRightOf="@+id/imagelv"
         android:layout_toEndOf="@+id/imagelv"
         android:layout_marginLeft="10dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/courseIDad"
         ></TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detailRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="485dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp" />
 </RelativeLayout>

@@ -14,6 +14,19 @@
         android:title="Delete Course"
         android:icon="@drawable/ic_delete_black_24dp"
         />
+    <item
+        android:id="@+id/announcementMenu"
+        android:icon="@drawable/ic_announcement"
+        android:title="Announcements"
+        app:showAsAction="always">
+        <menu>
+        <item
+            android:id="@+id/createAnnouncement"
+            android:title="Create Announcement"
+            ></item>
+        </menu>
+
+        ></item>
 
 
 
