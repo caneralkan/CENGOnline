@@ -88,7 +88,7 @@
             android:nextFocusDown="@id/passwordText"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorHint" />
-        
+
         <Button
             android:id="@+id/button_register"
             android:layout_width="match_parent"

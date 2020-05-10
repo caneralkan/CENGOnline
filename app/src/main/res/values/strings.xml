@@ -16,4 +16,6 @@
     <string name="registration_success">Registered Successfully</string>
     <string name="input_error_email_invalid">enter a valid email</string>
     <string name="courseName">Course Name</string>
+    <string name="navigation_drawer_close" >Close navigation drawer</string>
+    <string name="navigation_drawer_open" >Open navigation drawer</string>
 </resources>

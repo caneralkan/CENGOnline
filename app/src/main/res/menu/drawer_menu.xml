@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_courses"
+            android:icon="@drawable/ic_class_24dp"
+            android:title="Classes" />
+        <item
+            android:id="@+id/nav_assignments"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="Assignments" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_message_black_24dp"
+            android:title="Messages" />
+        >
+    </group>
+    <item android:title="Profile">
+        <menu>
+
+            <item
+                android:id="@+id/nav_logout"
+                android:title="Log Out" />
+        </menu>
+
+    </item>
+</menu>

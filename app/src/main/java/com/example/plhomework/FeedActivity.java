@@ -2,8 +2,12 @@ package com.example.plhomework;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,14 +18,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,12 +43,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //FeedActivity
-    Button btnSend;
+    private DrawerLayout drawerLayout;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseFirestore firebaseFirestore;
+    private TextView navName,navEmail;
     static FeedRecyclerAdapter feedRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +62,52 @@ public class FeedActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         feedRecyclerAdapter=new FeedRecyclerAdapter(FeedActivity.this);
         recyclerView.setAdapter(feedRecyclerAdapter);
+
+        NavigationView navigationView= findViewById(R.id.nav_view);
+        View headerView=navigationView.getHeaderView(0);
+
+        navEmail=headerView.findViewById(R.id.headerEmail);
+        navEmail.setText(firebaseUser.getEmail());
+        navName=headerView.findViewById(R.id.headerName);
+        navName.setText(LoginActivity.currentUser.getName()+" "+LoginActivity.currentUser.getSurname());
         //feedRecyclerAdapter.notifyDataSetChanged();
+        Toolbar toolbar=findViewById(R.id.toolbarFeed);
+        setSupportActionBar(toolbar);
+        drawerLayout=findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
 
-
+        toggle.syncState();
+        navigationView.setCheckedItem(R.id.nav_courses);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_logout:
+                firebaseAuth.signOut();
+                Intent intentToLogin=new Intent(FeedActivity.this,LoginActivity.class);
+                startActivity(intentToLogin);
+                finish();
+                return false;
+            default :
+                return false;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
@@ -83,12 +132,6 @@ public class FeedActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.logoutMenu:
-                firebaseAuth.signOut();
-                Intent intentToLogin=new Intent(FeedActivity.this,LoginActivity.class);
-                startActivity(intentToLogin);
-                finish();
-                return true;
             case  R.id.AddCourseMenu:
                 Intent intentToAddCourse=new Intent(FeedActivity.this,AddCourseActivity.class);
                 startActivity(intentToAddCourse);
