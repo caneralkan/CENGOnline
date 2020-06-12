@@ -1,4 +1,4 @@
-package com.example.plhomework;
+package com.example.plhomework.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.plhomework.Activities.Course.CourseDetailActivity;
+import com.example.plhomework.Activities.LoginActivity;
+import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -40,7 +43,7 @@ public class FeedRecyclerAdapter extends RecyclerView.Adapter<FeedRecyclerAdapte
     public void onBindViewHolder(@NonNull final FeedRecyclerHolder holder, final int position) {
         FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
         CollectionReference collectionReference=firebaseFirestore.collection("Courses");
-        collectionReference.whereEqualTo("courseID",LoginActivity.allCourses.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        collectionReference.whereEqualTo("courseID", LoginActivity.allCourses.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for(DocumentSnapshot snapshot:task.getResult().getDocuments()){
@@ -58,7 +61,7 @@ public class FeedRecyclerAdapter extends RecyclerView.Adapter<FeedRecyclerAdapte
             @Override
             public void onItemClickListener(View v, int position) {
                 String courseIDCD=LoginActivity.allCourses.get(position);
-                Intent intent =new Intent(context,CourseDetailActivity.class);
+                Intent intent =new Intent(context, CourseDetailActivity.class);
                 intent.putExtra("courseID",courseIDCD);
                 context.startActivity(intent);
             }

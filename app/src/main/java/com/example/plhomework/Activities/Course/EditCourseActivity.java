@@ -1,16 +1,18 @@
-package com.example.plhomework;
+package com.example.plhomework.Activities.Course;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.plhomework.Activities.FeedActivity;
+import com.example.plhomework.Activities.LoginActivity;
+import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,7 +70,7 @@ public class EditCourseActivity extends AppCompatActivity {
     public void editCourseClicked(View view) {
         final DocumentReference documentReference = firebaseFirestore.collection("Courses").document(documentId);
         WriteBatch batch = firebaseFirestore.batch();
-        if (courseName.getText().toString() == null || courseID.getText().toString() == null || teacherName.getText().toString() == null || teacherEmail.getText().toString() == null || teacherSurname.getText().toString() == null) {
+        if (courseName.getText().toString().matches("") || courseID.getText().toString().matches("")|| teacherName.getText().toString().matches("") || teacherEmail.getText().toString().matches("")|| teacherSurname.getText().toString().matches("")) {
             Toast.makeText(EditCourseActivity.this,"Fill the spaces!",Toast.LENGTH_LONG).show();
         } else {
             batch.update(documentReference, "courseName", courseName.getText().toString());
@@ -92,17 +94,33 @@ public class EditCourseActivity extends AppCompatActivity {
                                 documentReference1.update("courseID", courseID.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Intent intent=new Intent(EditCourseActivity.this,CourseDetailActivity.class);
-                                        intent.putExtra("courseID",courseID.getText().toString());
-                                        startActivity(intent);
-                                        finish();
+
                                     }
                                 });
 
                             }
+                            firebaseFirestore.collection("Course_Announcement").whereEqualTo("courseID",courseIDstring).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                                        documentId=snapshot.getId();
+                                        DocumentReference documentReference1=firebaseFirestore.collection("Course_Announcement").document(documentId);
+                                        documentReference1.update("courseID",courseID.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                            }
+                                        });
+                                    }
+                                    Intent intent=new Intent(EditCourseActivity.this, CourseDetailActivity.class);
+                                    intent.putExtra("courseID",courseID.getText().toString());
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
                         }
                     });
-                    Intent intent=new Intent(EditCourseActivity.this,FeedActivity.class);
+                    Intent intent=new Intent(EditCourseActivity.this, FeedActivity.class);
                     startActivity(intent);
                     finish();
                 }

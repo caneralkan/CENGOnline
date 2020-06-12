@@ -1,4 +1,4 @@
-package com.example.plhomework;
+package com.example.plhomework.Activities.Course;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.plhomework.Activities.FeedActivity;
+import com.example.plhomework.Activities.LoginActivity;
+import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,7 +63,7 @@ public class AddCourseActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //Course course=new Course(courseName.getText().toString(),courseID.getText().toString(),teacherName.getText().toString(),teacherSurname.getText().toString(),teacherEmail.getText().toString());
                 LoginActivity.allCourses.add(courseID.getText().toString());
-                FeedActivity.feedRecyclerAdapter.notifyDataSetChanged();
+                //FeedActivity.feedRecyclerAdapter.notifyDataSetChanged();
                 startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {

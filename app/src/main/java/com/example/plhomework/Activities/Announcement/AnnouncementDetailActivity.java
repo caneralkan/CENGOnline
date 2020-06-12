@@ -1,4 +1,4 @@
-package com.example.plhomework;
+package com.example.plhomework.Activities.Announcement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.plhomework.Activities.Course.CourseDetailActivity;
+import com.example.plhomework.Activities.LoginActivity;
+import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -71,7 +74,7 @@ public class AnnouncementDetailActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(AnnouncementDetailActivity.this, "Announcement Deleted!", Toast.LENGTH_SHORT).show();
                         //CourseDetailActivity.announcements.remove(intent.getIntExtra("position",0));
-                        Intent intent2=new Intent(AnnouncementDetailActivity.this,CourseDetailActivity.class);
+                        Intent intent2=new Intent(AnnouncementDetailActivity.this, CourseDetailActivity.class);
                         intent2.putExtra("courseID",intent.getStringExtra("courseID"));
 
                         startActivity(intent2);

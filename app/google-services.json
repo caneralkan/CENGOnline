@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "9908950795",
-    "firebase_url": "https://plhomework-ddff9.firebaseio.com",
-    "project_id": "plhomework-ddff9",
-    "storage_bucket": "plhomework-ddff9.appspot.com"
+    "project_number": "137632290663",
+    "firebase_url": "https://plodevi.firebaseio.com",
+    "project_id": "plodevi",
+    "storage_bucket": "plodevi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:9908950795:android:f2859f5b5c4070fe59740e",
+        "mobilesdk_app_id": "1:137632290663:android:a06796a5e17f7fda9001c2",
         "android_client_info": {
           "package_name": "com.example.plhomework"
         }
       },
       "oauth_client": [
         {
-          "client_id": "9908950795-3rcklhvegr32bgu56m6f1rae7pmhfuol.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.plhomework",
-            "certificate_hash": "e54bc354c91c8eaf4547638658a05a0218bc39ec"
-          }
-        },
-        {
-          "client_id": "9908950795-gs75r3m645k575agb8hbke7h65ij2ton.apps.googleusercontent.com",
+          "client_id": "137632290663-dov3lnfu1f03jo774acen1rmbje7nt9f.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBoAqBZWpmPvJmHIamen03D1d0KhXAQab4"
+          "current_key": "AIzaSyBBvwjsnfJdW75nKZ-BOiZg2V-w3HMFxes"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "9908950795-gs75r3m645k575agb8hbke7h65ij2ton.apps.googleusercontent.com",
+              "client_id": "137632290663-dov3lnfu1f03jo774acen1rmbje7nt9f.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,4 +1,4 @@
-package com.example.plhomework;
+package com.example.plhomework.Activities.Announcement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.plhomework.Activities.Course.CourseDetailActivity;
+import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,7 +74,7 @@ public class EditAnnouncementActivity extends AppCompatActivity {
 
                     Toast.makeText(EditAnnouncementActivity.this, "Announcement has been edited!", Toast.LENGTH_LONG).show();
 
-                    Intent intent2=new Intent(EditAnnouncementActivity.this,CourseDetailActivity.class);
+                    Intent intent2=new Intent(EditAnnouncementActivity.this, CourseDetailActivity.class);
                     intent2.putExtra("courseID",intent.getStringExtra("courseID"));
                     startActivity(intent2);
                     finish();

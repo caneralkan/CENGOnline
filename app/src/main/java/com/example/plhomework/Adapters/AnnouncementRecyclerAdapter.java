@@ -1,4 +1,4 @@
-package com.example.plhomework;
+package com.example.plhomework.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,15 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.example.plhomework.Activities.Announcement.AnnouncementDetailActivity;
+import com.example.plhomework.OOPFiles.Announcement;
+import com.example.plhomework.R;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 
 public class AnnouncementRecyclerAdapter extends RecyclerView.Adapter<AnnouncementRecyclerAdapter.AnnouncementRecyclerHolder> {
@@ -52,7 +49,7 @@ public class AnnouncementRecyclerAdapter extends RecyclerView.Adapter<Announceme
             @Override
             public void onItemClickListener(View v, int position) {
                 String courseIDCD=announcements.get(position).getCourseID();
-                Intent intent =new Intent(context,AnnouncementDetailActivity.class);
+                Intent intent =new Intent(context, AnnouncementDetailActivity.class);
                 intent.putExtra("announcementID",announcements.get(position).getID());
                 intent.putExtra("position",position);
                 intent.putExtra("courseID",courseIDCD);

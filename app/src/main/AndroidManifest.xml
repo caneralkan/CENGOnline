@@ -9,25 +9,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditAnnouncementActivity"></activity>
-        <activity android:name=".AnnouncementDetailActivity" />
+        <activity android:name=".Activities.Assignment.AssignmentActivity"
+            android:label="AssignmentActivity"
+            android:theme="@style/AppTheme.NoActionBar" ></activity>
         <activity
-            android:name=".AddAnnouncementActivity"
-            android:parentActivityName=".CourseDetailActivity" />
-        <activity android:name=".EditCourseActivity" />
+            android:name=".Activities.Message.MessageActivity"
+            android:label="@string/title_activity_message"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.Announcement.EditAnnouncementActivity" />
+        <activity android:name=".Activities.Announcement.AnnouncementDetailActivity" />
         <activity
-            android:name=".CourseDetailActivity"
-            android:parentActivityName=".FeedActivity" />
-        <activity android:name=".AddCourseActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".LoginActivity">
+            android:name=".Activities.Announcement.AddAnnouncementActivity"
+            android:parentActivityName=".Activities.Course.CourseDetailActivity" />
+        <activity android:name=".Activities.Course.EditCourseActivity" />
+        <activity
+            android:name=".Activities.Course.CourseDetailActivity"
+            android:parentActivityName=".Activities.FeedActivity" />
+        <activity android:name=".Activities.Course.AddCourseActivity" />
+        <activity android:name=".Activities.SignUpActivity" />
+        <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FeedActivity"
+        <activity
+            android:name=".Activities.FeedActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

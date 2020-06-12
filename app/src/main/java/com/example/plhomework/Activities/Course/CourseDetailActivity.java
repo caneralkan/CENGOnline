@@ -1,21 +1,24 @@
-package com.example.plhomework;
+package com.example.plhomework.Activities.Course;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
+import com.example.plhomework.Activities.Announcement.AddAnnouncementActivity;
+import com.example.plhomework.Activities.FeedActivity;
+import com.example.plhomework.Activities.LoginActivity;
+import com.example.plhomework.OOPFiles.Announcement;
+import com.example.plhomework.Adapters.AnnouncementRecyclerAdapter;
+import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -43,7 +46,7 @@ public class CourseDetailActivity extends AppCompatActivity {
 
         CollectionReference collectionReference=firebaseFirestore.collection("Courses");
         System.out.println("kursidsi: "+intent.getStringExtra("courseID"));
-        System.out.println("kursunyeri: "+LoginActivity.allCourses.indexOf(intent.getStringExtra("courseID")));
+        System.out.println("kursunyeri: "+ LoginActivity.allCourses.indexOf(intent.getStringExtra("courseID")));
         collectionReference.whereEqualTo("courseID",LoginActivity.allCourses.get(LoginActivity.allCourses.indexOf(intent.getStringExtra("courseID")))).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -103,7 +106,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.EditCourse:
-                Intent intentToEdit=new Intent(CourseDetailActivity.this,EditCourseActivity.class);
+                Intent intentToEdit=new Intent(CourseDetailActivity.this, EditCourseActivity.class);
                 intentToEdit.putExtra("courseID",courseIDad.getText().toString());
                 startActivity(intentToEdit);
                 return true;
@@ -131,7 +134,24 @@ public class CourseDetailActivity extends AppCompatActivity {
                                                     }
                                                 });
                                             }
-                                            Intent intent=new Intent(CourseDetailActivity.this,FeedActivity.class);
+                                            Intent intent=new Intent(CourseDetailActivity.this, FeedActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+                                    firebaseFirestore.collection("Course_Announcement").whereEqualTo("courseID",courseIDad.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                                                DocumentReference documentReference1=firebaseFirestore.collection("Course_Announcement").document(snapshot.getId());
+                                                documentReference1.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                    }
+                                                });
+                                            }
+                                            Intent intent=new Intent(CourseDetailActivity.this, FeedActivity.class);
                                             startActivity(intent);
                                             finish();
                                         }
@@ -143,7 +163,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                 });
                 return true;
             case R.id.createAnnouncement:
-                Intent intentToAddAnnouncement=new Intent(CourseDetailActivity.this,AddAnnouncementActivity.class);
+                Intent intentToAddAnnouncement=new Intent(CourseDetailActivity.this, AddAnnouncementActivity.class);
                 intentToAddAnnouncement.putExtra("courseID",courseIDad.getText().toString());
                 startActivity(intentToAddAnnouncement);
                 return true;

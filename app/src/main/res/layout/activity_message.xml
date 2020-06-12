@@ -2,12 +2,12 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/drawer_layout_message"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".Activities.FeedActivity"
-    tools:openDrawer="left">
+    tools:context=".Activities.Message.MessageActivity"
+    tools:openDrawer="left"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            app:title="Classes"
+            app:title="Messages"
             android:id="@+id/toolbarFeed"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -45,7 +45,5 @@
         android:layout_gravity="left"
         app:headerLayout="@layout/nav_hearder"
         app:menu="@menu/drawer_menu" />
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

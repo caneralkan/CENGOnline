@@ -1,17 +1,19 @@
-package com.example.plhomework;
+package com.example.plhomework.Activities;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.plhomework.R;
+import com.example.plhomework.OOPFiles.Student;
+import com.example.plhomework.OOPFiles.Teacher;
+import com.example.plhomework.OOPFiles.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,16 +22,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
 import static java.lang.Thread.sleep;
 
@@ -59,10 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         if(firebaseUser!= null){
             //setUserFromCurrentUser(firebaseUser.getEmail());//ve bu
             CollectionReference collectionReference=firebaseFirestore.collection("Users");
-            collectionReference.whereEqualTo("email",firebaseUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            collectionReference.whereEqualTo("email",firebaseUser.getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()){
                         Map<String,Object> data=snapshot.getData();
 
 
@@ -102,6 +100,10 @@ public class LoginActivity extends AppCompatActivity {
                         });
 
                     }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
                 }
             });

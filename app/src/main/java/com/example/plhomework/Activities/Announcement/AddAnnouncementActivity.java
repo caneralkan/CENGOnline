@@ -1,4 +1,4 @@
-package com.example.plhomework;
+package com.example.plhomework.Activities.Announcement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.plhomework.Activities.Course.CourseDetailActivity;
+import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -53,7 +53,7 @@ public class AddAnnouncementActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(AddAnnouncementActivity.this, "Announcement has been created!", Toast.LENGTH_SHORT).show();
-                Intent intent2=new Intent(AddAnnouncementActivity.this,CourseDetailActivity.class);
+                Intent intent2=new Intent(AddAnnouncementActivity.this, CourseDetailActivity.class);
                 intent2.putExtra("courseID",intent.getStringExtra("courseID"));
 
                 intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
