@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                             LoginActivity.currentUser=new Teacher(name,surname,email);
                         }
 
-                        CollectionReference collectionReference=firebaseFirestore.collection("Course_User");
+                        CollectionReference collectionReference=firebaseFirestore.collection("Course_User");//allcourses içine kullanıcının kayıt olduğu tüm kursları doldurma
                         collectionReference.whereEqualTo("email",firebaseUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {

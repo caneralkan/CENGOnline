@@ -51,7 +51,7 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
     FirebaseFirestore firebaseFirestore;
     public static NavigationView navigationView;
     Toolbar toolbar;
-    private TextView navName,navEmail;
+    TextView navName,navEmail;
     public  FeedRecyclerAdapter feedRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,13 +198,11 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
                             public void onFailure(@NonNull Exception e) {
                                  if(LoginActivity.allCourses.contains(input.getText().toString())){
 
-                                    System.out.println("ververver");
                                     Toast.makeText(FeedActivity.this, "You are already enrolled to that course!", Toast.LENGTH_LONG).show();
 
                                 }
                                  else {
 
-                                     System.out.println("alalala");
                                      Toast.makeText(FeedActivity.this, "No courses found with that ID. Please check your Course ID!", Toast.LENGTH_LONG).show();
                                  }
                             }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/from"
+            android:text="From: "
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+
+            />
+
+        <TextView
+            android:id="@+id/fromEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/from"
+            android:text="herhangibirmail@co.edu.tr"
+            android:textColor="#000"
+            android:textSize="20sp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/date111"
+            android:text="@string/date"
+
+            android:layout_below="@+id/from"
+            android:textSize="15sp"
+            android:textColor="#000"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateCard"
+            android:layout_toEndOf="@+id/date111"
+            android:text="@string/_20_10_2020"
+            android:layout_below="@+id/from"
+            android:textSize="15sp"
+
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/message"
+
+            android:id="@+id/messageCard"
+            android:textSize="18sp"
+            android:layout_below="@+id/dateCard"
+
+            android:textColor="#000"/>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

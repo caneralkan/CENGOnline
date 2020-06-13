@@ -29,4 +29,13 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="home_second">Home Second</string>
+    <string name="announcement_title">Announcement Title</string>
+    <string name="to">to:</string>
+    <string name="email_address">email address</string>
+    <string name="message_text">Message Text</string>
+    <string name="email_address2">Email Address</string>
+    <string name="create_announcement">Create Announcement</string>
+    <string name="message">Message</string>
+    <string name="_20_10_2020">20-10-2020</string>
+    <string name="date">Date:</string>
 </resources>

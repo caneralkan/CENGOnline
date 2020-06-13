@@ -23,6 +23,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText emailText,passwordText,nameText,surnameText;
@@ -70,22 +71,23 @@ public class SignUpActivity extends AppCompatActivity {
                     postUser.put("password",password);
                     postUser.put("name",name);
                     postUser.put("surname",surname);
+                    String uniqueID = UUID.randomUUID().toString();
+                    postUser.put("userID",uniqueID);
                     User user;
                     if(email.endsWith("ogr.co.edu.tr")){
                         postUser.put("userType","student");
                          user=new Student(name,surname,email,true);
-                        //LoginActivity.allUsers.add(user);
                     }
                     else{
                         postUser.put("userType","teacher");
                         user=new Teacher(name,surname,email);
-                        //LoginActivity.allUsers.add(user);
                     }
                     LoginActivity.currentUser=user;
 
-                    firebaseFirestore.collection("Users").add(postUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    firebaseFirestore.collection("Users").document(uniqueID).set(postUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
+                        public void onSuccess(Void aVoid) {
+
                             Toast.makeText(SignUpActivity.this,"User Created", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(SignUpActivity.this, FeedActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -95,7 +97,6 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(SignUpActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
-
                         }
                     });
 
