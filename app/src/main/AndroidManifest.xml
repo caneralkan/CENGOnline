@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.Assignment.AssignmentActivity"
+        <activity android:name=".Activities.Assignment.AddAssignmentActivity"></activity>
+        <activity
+            android:name=".Activities.Assignment.AssignmentActivity"
             android:label="AssignmentActivity"
-            android:theme="@style/AppTheme.NoActionBar" ></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.Message.MessageActivity"
             android:label="@string/title_activity_message"

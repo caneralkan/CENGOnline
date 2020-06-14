@@ -90,7 +90,7 @@ public class MessageActivity extends AppCompatActivity implements NavigationView
                 for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
                     Map<String, Object> data = snapshot.getData();
                     userID = (String) data.get("userID");
-                }//kullanıcının messages koleksiyonu yoksa patlar!
+                }
                 firebaseFirestore.collection("Users").document(userID).collection("Messages").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

@@ -102,7 +102,6 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_assignments:
                 Intent intentToAssignment=new Intent(FeedActivity.this, AssignmentActivity.class);
                 startActivity(intentToAssignment);
-                finish();
                 return false;
             default :
                 return false;

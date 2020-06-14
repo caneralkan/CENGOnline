@@ -38,4 +38,9 @@
     <string name="message">Message</string>
     <string name="_20_10_2020">20-10-2020</string>
     <string name="date">Date:</string>
+    <string name="create_assignment">Create Assignment</string>
+    <string name="assignment_title">Assignment Title</string>
+    <string name="course_id">Course ID</string>
+    <string name="add_assignment">ADD ASSIGNMENT</string>
+    <string name="put_your_assignment_here">Put your assignment here.</string>
 </resources>

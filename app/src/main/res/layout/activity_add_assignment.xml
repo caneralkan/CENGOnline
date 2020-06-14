@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Assignment.AddAssignmentActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="132dp"
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding"
+        tools:ignore="ExtraText">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/app_name_size"
+
+            android:text="@string/create_assignment"/>
+
+        <EditText
+            android:id="@+id/assignmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_assignment_black_24dp"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:nextFocusDown="@id/assignmentCourseID"
+            android:hint="@string/assignment_title"
+            android:textColorHint="@color/colorHint" />
+        <EditText
+            android:id="@+id/assignmentCourseID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_class_black_24dp"
+            android:nextFocusDown="@+id/assignmentContext"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="@string/course_id"
+            android:textColorHint="@color/colorHint" />
+
+        <EditText
+            android:id="@+id/endDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:drawablePadding="@dimen/drawable_padding"
+            android:drawableStart="@drawable/ic_date_range_black_24dp"
+            android:ems="10"
+            android:inputType="date"
+            android:hint="End Date" />
+
+        <EditText
+            android:id="@+id/assignmentContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:nextFocusDown="@id/button_announcement"
+            android:textColorHint="@color/colorHint"
+            android:textColor="@color/colorText"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="@string/put_your_assignment_here"/><![CDATA[
+
+        >]]>
+        <Button
+            android:id="@+id/button_assignment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_register"
+            android:onClick="addAssignmentClicked"
+            android:text="@string/add_assignment"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+
+</RelativeLayout>
