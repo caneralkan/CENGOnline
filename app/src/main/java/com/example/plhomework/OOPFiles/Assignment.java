@@ -1,8 +1,9 @@
 package com.example.plhomework.OOPFiles;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Assignment {
+public class Assignment implements Serializable {
     String assignmentID, description, courseID,assignmentTitle;
     String startDate, endDate;
 

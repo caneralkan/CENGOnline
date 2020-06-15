@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     public static ArrayList<String> allCourses=new ArrayList<>();
     public static User currentUser;
+    public static String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                         else if(userType.matches("teacher")){
                             LoginActivity.currentUser=new Teacher(name,surname,email);
                         }
+                        userID= (String) data.get("userID");
 
                         CollectionReference collectionReference=firebaseFirestore.collection("Course_User");//allcourses içine kullanıcının kayıt olduğu tüm kursları doldurma
                         collectionReference.whereEqualTo("email",firebaseUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -144,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                                     else if(userType.matches("teacher")){
                                         LoginActivity.currentUser=new Teacher(name,surname,email);
                                     }
+                                    userID= (String) data.get("userID");
                                     CollectionReference collectionReference=firebaseFirestore.collection("Course_User");
                                     collectionReference.whereEqualTo("email",emailUser).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Assignment.AssignmentDetailStudentActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        app:title="Assignment Submission"
+        android:id="@+id/toolbarAssignmentStudent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/courseIDAsDetail"
+        android:text="Course ID:"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/toolbarAssignmentStudent"
+        android:textSize="22sp"
+        android:textColor="#000"
+
+        android:textStyle="bold"
+
+        />
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/courseIDAsDetail"
+        android:id="@+id/assignmentTitle"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+
+            android:id="@+id/assignmentTitleText"
+            android:text="Assignment Title"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+    </HorizontalScrollView>
+    <ImageView
+        android:id="@+id/assignmentImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/ic_assignment_black_24dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="TODO"
+        android:layout_below="@id/assignmentTitle"/>
+    <TextView
+        android:id="@+id/assignmentStart"
+        android:text="Start Date: "
+
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/assignmentImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assignmentTitle"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentStartDate"
+        android:layout_toRightOf="@+id/assignmentStart"
+        android:text="@string/_20_10_2020"
+        android:layout_below="@+id/assignmentTitle"
+        android:textSize="20sp"
+
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/assignmentDue"
+        android:text="Due Date: "
+
+        android:textColor="#FF0000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/assignmentImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assignmentStartDate"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentDueDate"
+        android:layout_toRightOf="@+id/assignmentDue"
+        android:text="@string/_20_10_2020"
+        android:layout_below="@+id/assignmentStartDate"
+        android:textSize="20sp"
+
+        android:textColor="#FF0000"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/assignmentContextDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assignmentImg"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+
+        android:text="Assignment Context"
+        android:textColor="#a9a9a9"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/assignmentStatus"
+        android:text="Submission status: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assignmentContextDetail"
+        />
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/assignmentContextDetail"
+        android:layout_toEndOf="@+id/assignmentStatus"
+        android:id="@+id/assignmentSubmissionStatus">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Missing / Handed in"
+            android:id="@+id/assignmentSubmissionStatusText"
+            android:textColor="#FF0000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            />
+    </HorizontalScrollView>
+
+    <EditText
+        android:id="@+id/assignmentSubmit"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assignmentStatus"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+
+        android:hint="Online text submission"
+        android:textColor="#a9a9a9"
+        android:textSize="18sp" />
+    <Button
+        android:id="@+id/submit_assignment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_assignment_submission"
+        android:onClick="submitAssignmentClicked"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/assignmentSubmit"
+        android:text="Add SUBMISSION"
+
+        android:textColor="#ffffe0" />
+
+</RelativeLayout>

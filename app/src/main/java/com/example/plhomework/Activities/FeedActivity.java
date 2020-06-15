@@ -127,6 +127,10 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
             addCourse.setVisible(false);
 
         }
+        else if (LoginActivity.currentUser!=null &&  !LoginActivity.currentUser.isStudent()){
+            MenuItem addCourse = menu.findItem(R.id.enrollMenu);
+            addCourse.setVisible(false);
+        }
         return true;
     }
     //Connecting menu to this activity

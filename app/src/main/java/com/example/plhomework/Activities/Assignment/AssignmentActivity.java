@@ -43,10 +43,10 @@ public class AssignmentActivity extends AppCompatActivity implements NavigationV
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseFirestore firebaseFirestore;
-    public static NavigationView navigationView;
+    NavigationView navigationView;
     Toolbar toolbar;
     TextView navName,navEmail;
-    static ArrayList<Assignment> assignments;
+    ArrayList<Assignment> assignments;
     AssignmentRecyclerAdapter assignmentRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {//loginactivity allcourses arrayini kullanarak Assignment içindeki courseID'leri karşılaştır. olanı göster

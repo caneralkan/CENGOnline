@@ -29,7 +29,6 @@ import java.util.UUID;
 
 public class AddAssignmentActivity extends AppCompatActivity {
     EditText assignmentTitle,assignmentContext,courseID,endDate;
-    Button addAssignment;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     @Override
@@ -40,7 +39,6 @@ public class AddAssignmentActivity extends AppCompatActivity {
         assignmentTitle=findViewById(R.id.assignmentTitle);
         courseID=findViewById(R.id.assignmentCourseID);
         endDate=findViewById(R.id.endDate);
-        addAssignment=findViewById(R.id.button_assignment);
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
 
