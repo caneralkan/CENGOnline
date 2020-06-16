@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.plhomework.Activities.Course.CourseFeedActivity;
 import com.example.plhomework.R;
 import com.example.plhomework.OOPFiles.Student;
 import com.example.plhomework.OOPFiles.Teacher;
@@ -93,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 }
 
-                                Intent intent=new Intent(LoginActivity.this, FeedActivity.class);
+                                Intent intent=new Intent(LoginActivity.this, CourseFeedActivity.class);
                                 startActivity(intent);
 
                                 finish();
@@ -158,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         }
                                         Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(LoginActivity.this, FeedActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, CourseFeedActivity.class);
                                         startActivity(intent);
                                         finish();
 

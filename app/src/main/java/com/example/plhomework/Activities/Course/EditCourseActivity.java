@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.plhomework.Activities.FeedActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -120,7 +119,7 @@ public class EditCourseActivity extends AppCompatActivity {
                             });
                         }
                     });
-                    Intent intent=new Intent(EditCourseActivity.this, FeedActivity.class);
+                    Intent intent=new Intent(EditCourseActivity.this, CourseFeedActivity.class);
                     startActivity(intent);
                     finish();
                 }

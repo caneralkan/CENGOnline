@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/from"
+            android:text="Student: "
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+
+            />
+
+        <TextView
+            android:id="@+id/studentNameSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/from"
+            android:text="Halit DOGMEN"
+            android:textColor="#000"
+            android:textSize="20sp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/date111"
+            android:text="Submission Date: "
+
+            android:layout_below="@+id/from"
+            android:textSize="15sp"
+            android:textColor="#000"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submissionDate"
+            android:layout_toEndOf="@+id/date111"
+            android:text="@string/_20_10_2020"
+            android:layout_below="@+id/from"
+            android:textSize="15sp"
+
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WORK"
+
+            android:id="@+id/submissionText"
+            android:textSize="18sp"
+            android:layout_below="@+id/submissionDate"
+
+            android:textColor="#000"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

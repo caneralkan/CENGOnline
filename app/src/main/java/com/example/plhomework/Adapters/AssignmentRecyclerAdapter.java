@@ -11,9 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plhomework.Activities.Assignment.AssignmentDetailStudentActivity;
+import com.example.plhomework.Activities.Assignment.AssignmentDetailTeacherActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.OOPFiles.Assignment;
 import com.example.plhomework.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -21,9 +27,14 @@ public class AssignmentRecyclerAdapter extends RecyclerView.Adapter<AssignmentRe
     ArrayList<Assignment> assignments;
     Context context;
 
+
+    FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
     public AssignmentRecyclerAdapter(Context context,ArrayList<Assignment> assignments) {
         this.context=context;
         this.assignments = assignments;
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
     }
 
     @NonNull
@@ -42,10 +53,10 @@ public class AssignmentRecyclerAdapter extends RecyclerView.Adapter<AssignmentRe
         holder.endDate.setText(assignments.get(position).getEndDate());
         holder.courseID.setText(assignments.get(position).getCourseID());
 
-        //aşağıdaki kod mesajlara tıklanırsa ne olacağıdır. düzelt
+        //aşağıdaki kod mesajlara tıklanırsa ne olacağıdır.
         holder.setItemClickListener(new ItemClickListener() {
             @Override
-            public void onItemClickListener(View v, int position) {
+            public void onItemClickListener(View v, final int position) {
                 if(LoginActivity.currentUser.isStudent()){
                     Intent intent =new Intent(context, AssignmentDetailStudentActivity.class);
                     intent.putExtra("assignment",assignments.get(position));
@@ -53,6 +64,9 @@ public class AssignmentRecyclerAdapter extends RecyclerView.Adapter<AssignmentRe
                 }
                 else{//öğretmenin assignment tıklamasına göre aktivite oluştur. view submitted works yap!
 
+                    Intent intent =new Intent(context, AssignmentDetailTeacherActivity.class);
+                    intent.putExtra("assignment",assignments.get(position));
+                    context.startActivity(intent);
                 }
 
             }

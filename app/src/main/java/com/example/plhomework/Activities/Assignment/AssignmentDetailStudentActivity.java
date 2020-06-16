@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class AssignmentDetailStudentActivity extends AppCompatActivity {
     Intent intent;
     Assignment assignment;
     TextView assignmentTitle,startDate,dueDate,context,submissionStatus,courseIDAsDetail;
+    Button button;
     EditText submitText;
     Toolbar toolbar;
     FirebaseFirestore firebaseFirestore;
@@ -50,7 +52,7 @@ public class AssignmentDetailStudentActivity extends AppCompatActivity {
 
         toolbar=findViewById(R.id.toolbarAssignmentStudent);
         setSupportActionBar(toolbar);
-
+        button=findViewById(R.id.submit_assignment);
         courseIDAsDetail=findViewById(R.id.courseIDAsDetail);
         assignmentTitle=findViewById(R.id.assignmentTitleText);
         startDate=findViewById(R.id.assignmentStartDate);
@@ -74,6 +76,7 @@ public class AssignmentDetailStudentActivity extends AppCompatActivity {
                         Map<String, Object> data = snapshot.getData();
                         submissionStatus.setText("Handed in on "+data.get("submissionDate") );
                         submitText.setText((String)data.get("assignment"));
+                        button.setText("RESUBMIT");
                     }
                 }
                 else {

@@ -1,4 +1,4 @@
-package com.example.plhomework.Activities;
+package com.example.plhomework.Activities.Course;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plhomework.Activities.Assignment.AssignmentActivity;
-import com.example.plhomework.Activities.Course.AddCourseActivity;
+import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.Activities.Message.MessageActivity;
 import com.example.plhomework.Adapters.FeedRecyclerAdapter;
 import com.example.plhomework.R;
@@ -43,8 +43,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FeedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    //FeedActivity
+public class CourseFeedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    //CourseFeedActivity
      DrawerLayout drawerLayout;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -62,7 +62,7 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
         firebaseFirestore=FirebaseFirestore.getInstance();
         RecyclerView recyclerView=findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        feedRecyclerAdapter=new FeedRecyclerAdapter(FeedActivity.this);
+        feedRecyclerAdapter=new FeedRecyclerAdapter(CourseFeedActivity.this);
         recyclerView.setAdapter(feedRecyclerAdapter);
 
          navigationView= findViewById(R.id.nav_view);
@@ -90,17 +90,17 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.nav_logout:
                 firebaseAuth.signOut();
-                Intent intentToLogin=new Intent(FeedActivity.this,LoginActivity.class);
+                Intent intentToLogin=new Intent(CourseFeedActivity.this,LoginActivity.class);
                 startActivity(intentToLogin);
                 finish();
                 return false;
             case R.id.nav_messages:
-                Intent intentToMessage=new Intent(FeedActivity.this, MessageActivity.class);
+                Intent intentToMessage=new Intent(CourseFeedActivity.this, MessageActivity.class);
                 startActivity(intentToMessage);
                 finish();
                 return false;
             case R.id.nav_assignments:
-                Intent intentToAssignment=new Intent(FeedActivity.this, AssignmentActivity.class);
+                Intent intentToAssignment=new Intent(CourseFeedActivity.this, AssignmentActivity.class);
                 startActivity(intentToAssignment);
                 return false;
             default :
@@ -148,7 +148,7 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case  R.id.AddCourseMenu:
-                Intent intentToAddCourse=new Intent(FeedActivity.this, AddCourseActivity.class);
+                Intent intentToAddCourse=new Intent(CourseFeedActivity.this, AddCourseActivity.class);
                 startActivity(intentToAddCourse);
                 return true;
             case R.id.enrollMenu:
@@ -181,7 +181,7 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                 LoginActivity.allCourses.add(input.getText().toString());
-                                                Toast.makeText(FeedActivity.this,"Enrolled", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(CourseFeedActivity.this,"Enrolled", Toast.LENGTH_LONG).show();
                                                 feedRecyclerAdapter.notifyDataSetChanged();
                                             }
                                         });
@@ -201,12 +201,12 @@ public class FeedActivity extends AppCompatActivity implements NavigationView.On
                             public void onFailure(@NonNull Exception e) {
                                  if(LoginActivity.allCourses.contains(input.getText().toString())){
 
-                                    Toast.makeText(FeedActivity.this, "You are already enrolled to that course!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(CourseFeedActivity.this, "You are already enrolled to that course!", Toast.LENGTH_LONG).show();
 
                                 }
                                  else {
 
-                                     Toast.makeText(FeedActivity.this, "No courses found with that ID. Please check your Course ID!", Toast.LENGTH_LONG).show();
+                                     Toast.makeText(CourseFeedActivity.this, "No courses found with that ID. Please check your Course ID!", Toast.LENGTH_LONG).show();
                                  }
                             }
                         });

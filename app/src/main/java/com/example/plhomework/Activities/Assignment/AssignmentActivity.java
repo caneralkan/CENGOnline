@@ -17,13 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.plhomework.Activities.Announcement.AnnouncementDetailActivity;
-import com.example.plhomework.Activities.Announcement.EditAnnouncementActivity;
-import com.example.plhomework.Activities.FeedActivity;
+import com.example.plhomework.Activities.Course.CourseFeedActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.Activities.Message.MessageActivity;
 import com.example.plhomework.Adapters.AssignmentRecyclerAdapter;
-import com.example.plhomework.Adapters.MessageRecyclerAdapter;
 import com.example.plhomework.OOPFiles.Assignment;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -74,26 +71,28 @@ public class AssignmentActivity extends AppCompatActivity implements NavigationV
         navigationView.setCheckedItem(R.id.nav_assignments);
         navigationView.setNavigationItemSelectedListener(this);
         //aşağıdaki sorgu, allCourses içindeki courseIDlerden herhangi birine eşit assignment courseIDsi varsa , o assignmentı döndürmeye çalışıyor.
-        firebaseFirestore.collection("Course_Assignment").whereIn("courseID",LoginActivity.allCourses).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(!queryDocumentSnapshots.isEmpty()) {
-                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
-                        Map<String, Object> data = documentSnapshot.getData();
-                        assignments.add(new Assignment((String) data.get("assignmentID"), (String) data.get("assignmentTitle"), (String) data.get("assignmentContext"), (String) data.get("courseID"), (String) data.get("startDate"), (String) data.get("endDate")));
+        if(!LoginActivity.allCourses.isEmpty()) {
+            firebaseFirestore.collection("Course_Assignment").whereIn("courseID", LoginActivity.allCourses).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            Map<String, Object> data = documentSnapshot.getData();
+                            assignments.add(new Assignment((String) data.get("assignmentID"), (String) data.get("assignmentTitle"), (String) data.get("assignmentContext"), (String) data.get("courseID"), (String) data.get("startDate"), (String) data.get("endDate")));
+                        }
+                        RecyclerView recyclerView = findViewById(R.id.recyclerViewAssignment);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(AssignmentActivity.this));
+                        assignmentRecyclerAdapter = new AssignmentRecyclerAdapter(AssignmentActivity.this, assignments);
+                        recyclerView.setAdapter(assignmentRecyclerAdapter);
                     }
-                    RecyclerView recyclerView = findViewById(R.id.recyclerViewAssignment);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(AssignmentActivity.this));
-                    assignmentRecyclerAdapter = new AssignmentRecyclerAdapter(AssignmentActivity.this, assignments);
-                    recyclerView.setAdapter(assignmentRecyclerAdapter);
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override
@@ -111,7 +110,7 @@ public class AssignmentActivity extends AppCompatActivity implements NavigationV
                 finish();
                 return false;
             case R.id.nav_courses:
-                Intent intentToFeed=new Intent(AssignmentActivity.this, FeedActivity.class);
+                Intent intentToFeed=new Intent(AssignmentActivity.this, CourseFeedActivity.class);
                 startActivity(intentToFeed);
                 finish();
                 return false;

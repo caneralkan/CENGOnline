@@ -1,7 +1,6 @@
 package com.example.plhomework.Activities.Message;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -21,9 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plhomework.Activities.Assignment.AssignmentActivity;
-import com.example.plhomework.Activities.FeedActivity;
+import com.example.plhomework.Activities.Course.CourseFeedActivity;
 import com.example.plhomework.Activities.LoginActivity;
-import com.example.plhomework.Adapters.FeedRecyclerAdapter;
 import com.example.plhomework.Adapters.MessageRecyclerAdapter;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,15 +30,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.WriteBatch;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -147,7 +138,7 @@ public class MessageActivity extends AppCompatActivity implements NavigationView
                 finish();
                 return false;
             case R.id.nav_courses:
-                Intent intentToFeed=new Intent(MessageActivity.this, FeedActivity.class);
+                Intent intentToFeed=new Intent(MessageActivity.this, CourseFeedActivity.class);
                 startActivity(intentToFeed);
                 finish();
                 return false;

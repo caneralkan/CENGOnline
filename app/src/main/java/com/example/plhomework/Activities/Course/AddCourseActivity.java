@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.plhomework.Activities.FeedActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -59,11 +58,11 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(AddCourseActivity.this,"Course Created", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(AddCourseActivity.this, FeedActivity.class);
+                Intent intent = new Intent(AddCourseActivity.this, CourseFeedActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //Course course=new Course(courseName.getText().toString(),courseID.getText().toString(),teacherName.getText().toString(),teacherSurname.getText().toString(),teacherEmail.getText().toString());
                 LoginActivity.allCourses.add(courseID.getText().toString());
-                //FeedActivity.feedRecyclerAdapter.notifyDataSetChanged();
+                //CourseFeedActivity.feedRecyclerAdapter.notifyDataSetChanged();
                 startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {

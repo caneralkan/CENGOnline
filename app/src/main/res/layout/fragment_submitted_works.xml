@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Assignment.SubmittedWorksFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitCount"
+        android:text="15"
+        android:textSize="40sp"
+        android:layout_marginStart="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/done"
+        android:layout_below="@+id/submitCount"
+        android:text="DONE"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="75dp"
+        android:background="#FF0000FF"
+        android:layout_toEndOf="@+id/done"
+        android:layout_marginLeft="20dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/done"
+        android:id="@+id/recyclerViewAssignmentSubmission"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>

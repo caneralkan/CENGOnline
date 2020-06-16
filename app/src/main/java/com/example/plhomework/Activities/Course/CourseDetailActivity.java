@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plhomework.Activities.Announcement.AddAnnouncementActivity;
-import com.example.plhomework.Activities.FeedActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.OOPFiles.Announcement;
 import com.example.plhomework.Adapters.AnnouncementRecyclerAdapter;
@@ -134,7 +133,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                                                     }
                                                 });
                                             }
-                                            Intent intent=new Intent(CourseDetailActivity.this, FeedActivity.class);
+                                            Intent intent=new Intent(CourseDetailActivity.this, CourseFeedActivity.class);
                                             startActivity(intent);
                                             finish();
                                         }
@@ -151,7 +150,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                                                     }
                                                 });
                                             }
-                                            Intent intent=new Intent(CourseDetailActivity.this, FeedActivity.class);
+                                            Intent intent=new Intent(CourseDetailActivity.this, CourseFeedActivity.class);
                                             startActivity(intent);
                                             finish();
                                         }

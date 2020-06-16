@@ -2,10 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/deleteAnnouncement" android:icon="@drawable/ic_delete_black_24dp"
-        app:showAsAction="always" android:title="Delete the Course"></item>
-    <item android:id="@+id/editAnnouncement" android:icon="@drawable/ic_edit_black_24dp"
-        app:showAsAction="always" android:title="Enroll to Course"></item>
+    <item
+        android:id="@+id/deleteAnnouncement"
+        android:icon="@drawable/ic_delete_black_24dp"
+        app:showAsAction="always"
+        android:title="Delete the Course" />
+    <item
+        android:id="@+id/editAnnouncement"
+        android:icon="@drawable/ic_edit_black_24dp"
+        app:showAsAction="always"
+        android:title="Edit the Announcement" />
 
 
 </menu>

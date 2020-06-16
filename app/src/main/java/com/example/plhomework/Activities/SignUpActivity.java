@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.plhomework.Activities.Course.CourseFeedActivity;
 import com.example.plhomework.R;
 import com.example.plhomework.OOPFiles.Student;
 import com.example.plhomework.OOPFiles.Teacher;
@@ -19,7 +20,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -89,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onSuccess(Void aVoid) {
 
                             Toast.makeText(SignUpActivity.this,"User Created", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(SignUpActivity.this, FeedActivity.class);
+                            Intent intent = new Intent(SignUpActivity.this, CourseFeedActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }
