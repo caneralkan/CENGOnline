@@ -63,8 +63,7 @@ public class EditAssignmentActivity extends AppCompatActivity {
 
                     Toast.makeText(EditAssignmentActivity.this, "Assignment has been edited!", Toast.LENGTH_LONG).show();
 
-                    Intent intent2=new Intent(EditAssignmentActivity.this, AssignmentDetailTeacherActivity.class);
-                    intent2.putExtra("assignment",assignment);
+                    Intent intent2=new Intent(EditAssignmentActivity.this, AssignmentActivity.class);
                     startActivity(intent2);
                     finish();
                 }

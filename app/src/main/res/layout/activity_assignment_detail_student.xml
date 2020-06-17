@@ -163,10 +163,15 @@
         android:layout_below="@+id/assignmentStatus"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-
+        android:nextFocusDown="@id/submit_assignment"
         android:hint="Online text submission"
+
+        android:inputType="textMultiLine"
         android:textColor="#a9a9a9"
-        android:textSize="18sp" />
+        android:maxLines="8"
+        android:textSize="18sp" /><![CDATA[
+
+        >]]>
     <Button
         android:id="@+id/submit_assignment"
         android:layout_width="match_parent"

@@ -12,9 +12,14 @@ import android.widget.Toast;
 
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -23,9 +28,10 @@ import java.util.HashMap;
 public class AddCourseActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
+
+    FirebaseUser firebaseUser;
     EditText courseName;
     EditText courseID;
-    EditText teacherName,teacherSurname,teacherEmail;
     ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +39,13 @@ public class AddCourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_course);
         courseName=findViewById(R.id.courseName);
         courseID=findViewById(R.id.courseID);
-        teacherName=findViewById(R.id.teacherName);
-        teacherSurname=findViewById(R.id.teacherSurname);
-        teacherEmail=findViewById(R.id.teacherEmail);
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
+
+        firebaseUser=firebaseAuth.getCurrentUser();
 
 
     }
@@ -51,19 +56,28 @@ public class AddCourseActivity extends AppCompatActivity {
         HashMap<String,String> postCourse=new HashMap<>();
         postCourse.put("courseName",courseName.getText().toString());
         postCourse.put("courseID",courseID.getText().toString());
-        postCourse.put("teacherName",teacherName.getText().toString());
-        postCourse.put("teacherSurname",teacherSurname.getText().toString());
-        postCourse.put("teacherEmail",teacherEmail.getText().toString());
+        postCourse.put("teacherEmail",LoginActivity.currentUser.getEmail());
         firebaseFirestore.collection("Courses").add(postCourse).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(AddCourseActivity.this,"Course Created", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(AddCourseActivity.this, CourseFeedActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //Course course=new Course(courseName.getText().toString(),courseID.getText().toString(),teacherName.getText().toString(),teacherSurname.getText().toString(),teacherEmail.getText().toString());
-                LoginActivity.allCourses.add(courseID.getText().toString());
-                //CourseFeedActivity.feedRecyclerAdapter.notifyDataSetChanged();
-                startActivity(intent);
+                CollectionReference collectionReference = firebaseFirestore.collection("Course_User");
+                HashMap<String, String> enrollUser = new HashMap<>();
+                enrollUser.put("email", firebaseUser.getEmail());
+                enrollUser.put("courseID", courseID.getText().toString());
+                enrollUser.put("date", Timestamp.now().toDate().toString());
+                collectionReference.add(enrollUser).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+
+                        Toast.makeText(AddCourseActivity.this,"Course Created", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(AddCourseActivity.this, CourseFeedActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //Course course=new Course(courseName.getText().toString(),courseID.getText().toString(),teacherName.getText().toString(),teacherSurname.getText().toString(),teacherEmail.getText().toString());
+                        LoginActivity.allCourses.add(courseID.getText().toString());
+                        //CourseFeedActivity.feedRecyclerAdapter.notifyDataSetChanged();
+                        startActivity(intent);
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

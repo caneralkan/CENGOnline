@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.plhomework.Activities.Announcement.AnnouncementDetailActivity;
+import com.example.plhomework.Activities.Course.CourseDetailActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.Adapters.PageAdapter;
 import com.example.plhomework.OOPFiles.Assignment;
@@ -23,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -77,14 +81,15 @@ public class AssignmentDetailTeacherActivity extends AppCompatActivity {
                         System.out.println("beni say");
                     }
 
-                    viewPager=findViewById(R.id.viewPager);
 
-                    pageAdapter=new PageAdapter(getSupportFragmentManager(),assignment);
-                    viewPager.setAdapter(pageAdapter);
-                    tabLayout=findViewById(R.id.tabLayout);
-                    tabLayout.setupWithViewPager(viewPager);
 
                 }
+                viewPager=findViewById(R.id.viewPager);
+
+                pageAdapter=new PageAdapter(getSupportFragmentManager(),assignment);
+                viewPager.setAdapter(pageAdapter);
+                tabLayout=findViewById(R.id.tabLayout);
+                tabLayout.setupWithViewPager(viewPager);
 
             }
         });
@@ -111,6 +116,31 @@ public class AssignmentDetailTeacherActivity extends AppCompatActivity {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
                                 //databasede silme işlemleri yapılacak
+                                final DocumentReference documentReference=firebaseFirestore.collection("Course_Assignment").document(assignment.getAssignmentID());
+                                documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        documentReference.collection("Submits").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                                                    documentReference.collection("Submits").document(snapshot.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                                        }
+                                                    });
+                                                }
+
+                                                Toast.makeText(AssignmentDetailTeacherActivity.this, "Assignment Deleted!", Toast.LENGTH_SHORT).show();
+                                                Intent intent2=new Intent(AssignmentDetailTeacherActivity.this, AssignmentActivity.class);
+
+                                                startActivity(intent2);
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                });
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

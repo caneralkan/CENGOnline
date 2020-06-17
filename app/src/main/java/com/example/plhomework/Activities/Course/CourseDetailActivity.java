@@ -155,6 +155,38 @@ public class CourseDetailActivity extends AppCompatActivity {
                                             finish();
                                         }
                                     });
+                                    firebaseFirestore.collection("Course_Assignment").whereEqualTo("courseID",courseIDad.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                                                final DocumentReference documentReference1=firebaseFirestore.collection("Course_Assignment").document(snapshot.getId());
+                                               documentReference1.collection("Submits").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                   @Override
+                                                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                       for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                                                           documentReference1.collection("Submits").document(snapshot.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                               @Override
+                                                               public void onComplete(@NonNull Task<Void> task) {
+
+                                                               }
+                                                           });
+                                                       }
+                                                       documentReference1.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                           @Override
+                                                           public void onComplete(@NonNull Task<Void> task) {
+
+                                                           }
+                                                       });
+                                                   }
+                                               });
+
+
+                                            }
+                                            Intent intent=new Intent(CourseDetailActivity.this, CourseFeedActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
                                 }
                             });
                         }

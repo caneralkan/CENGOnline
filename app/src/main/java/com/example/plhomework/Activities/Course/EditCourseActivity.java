@@ -28,7 +28,6 @@ public class EditCourseActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     EditText courseName;
     EditText courseID;
-    EditText teacherName,teacherSurname,teacherEmail;
     ProgressBar progressBar;
     String courseIDstring;
     String documentId;
@@ -39,9 +38,6 @@ public class EditCourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_course);
         courseName=findViewById(R.id.courseName);
         courseID=findViewById(R.id.courseID);
-        teacherName=findViewById(R.id.teacherName);
-        teacherSurname=findViewById(R.id.teacherSurname);
-        teacherEmail=findViewById(R.id.teacherEmail);
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
@@ -58,9 +54,6 @@ public class EditCourseActivity extends AppCompatActivity {
                     Map<String, Object> data = snapshot.getData();
                     courseName.setText((String)data.get("courseName"));
                     courseID.setText((String)data.get("courseID"));
-                    teacherEmail.setText((String)data.get("teacherEmail"));
-                    teacherName.setText((String)data.get("teacherName"));
-                    teacherSurname.setText((String)data.get("teacherSurname"));
 
                 }
             }
@@ -69,14 +62,11 @@ public class EditCourseActivity extends AppCompatActivity {
     public void editCourseClicked(View view) {
         final DocumentReference documentReference = firebaseFirestore.collection("Courses").document(documentId);
         WriteBatch batch = firebaseFirestore.batch();
-        if (courseName.getText().toString().matches("") || courseID.getText().toString().matches("")|| teacherName.getText().toString().matches("") || teacherEmail.getText().toString().matches("")|| teacherSurname.getText().toString().matches("")) {
+        if (courseName.getText().toString().matches("") || courseID.getText().toString().matches("") ) {
             Toast.makeText(EditCourseActivity.this,"Fill the spaces!",Toast.LENGTH_LONG).show();
         } else {
             batch.update(documentReference, "courseName", courseName.getText().toString());
             batch.update(documentReference, "courseID", courseID.getText().toString());
-            batch.update(documentReference, "teacherName", teacherName.getText().toString());
-            batch.update(documentReference, "teacherEmail", teacherEmail.getText().toString());
-            batch.update(documentReference, "teacherSurname", teacherSurname.getText().toString());
             batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -111,10 +101,26 @@ public class EditCourseActivity extends AppCompatActivity {
                                             }
                                         });
                                     }
-                                    Intent intent=new Intent(EditCourseActivity.this, CourseDetailActivity.class);
-                                    intent.putExtra("courseID",courseID.getText().toString());
-                                    startActivity(intent);
-                                    finish();
+                                    firebaseFirestore.collection("Course_Assignment").whereEqualTo("courseID",courseIDstring).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            for (DocumentSnapshot snapshot:task.getResult().getDocuments()){
+                                                documentId=snapshot.getId();
+                                                DocumentReference documentReference1=firebaseFirestore.collection("Course_Assignment").document(documentId);
+                                                documentReference1.update("courseID",courseID.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                    }
+                                                });
+                                            }
+
+                                            Intent intent=new Intent(EditCourseActivity.this, CourseDetailActivity.class);
+                                            intent.putExtra("courseID",courseID.getText().toString());
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
                                 }
                             });
                         }

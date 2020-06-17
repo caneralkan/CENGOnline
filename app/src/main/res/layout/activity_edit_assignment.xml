@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:nextFocusDown="@id/button_announcement"
+            android:nextFocusDown="@id/button_assignment"
             android:hint="@string/put_your_assignment_here"
             android:textColorHint="@color/colorHint"/><![CDATA[
 

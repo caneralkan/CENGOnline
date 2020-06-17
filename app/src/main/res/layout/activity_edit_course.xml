@@ -53,41 +53,7 @@
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorHint" />
 
-        <EditText
-            android:id="@+id/teacherName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_name"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Teacher Name"
-            android:inputType="textEmailAddress"
-            android:nextFocusDown="@id/passwordText"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorHint" />
 
-        <EditText
-            android:id="@+id/teacherSurname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_name"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Teacher Surname"
-            android:inputType="textEmailAddress"
-            android:nextFocusDown="@id/passwordText"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorHint" />
-
-        <EditText
-            android:id="@+id/teacherEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_email"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Teacher Email"
-            android:inputType="textEmailAddress"
-            android:nextFocusDown="@id/passwordText"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorHint" />
 
         <Button
             android:id="@+id/button_register"

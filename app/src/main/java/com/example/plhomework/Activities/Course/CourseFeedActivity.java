@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class CourseFeedActivity extends AppCompatActivity implements NavigationV
     Toolbar toolbar;
     TextView navName,navEmail;
     public  FeedRecyclerAdapter feedRecyclerAdapter;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
