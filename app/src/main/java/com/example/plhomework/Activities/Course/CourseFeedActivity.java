@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,39 +47,40 @@ import java.util.Map;
 
 public class CourseFeedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //CourseFeedActivity
-     DrawerLayout drawerLayout;
+    DrawerLayout drawerLayout;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseFirestore firebaseFirestore;
     public static NavigationView navigationView;
     Toolbar toolbar;
-    TextView navName,navEmail;
-    public  FeedRecyclerAdapter feedRecyclerAdapter;
+    TextView navName, navEmail;
+    public FeedRecyclerAdapter feedRecyclerAdapter;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseUser=firebaseAuth.getCurrentUser();
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        RecyclerView recyclerView=findViewById(R.id.recyclerView);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        feedRecyclerAdapter=new FeedRecyclerAdapter(CourseFeedActivity.this);
+        feedRecyclerAdapter = new FeedRecyclerAdapter(CourseFeedActivity.this);
         recyclerView.setAdapter(feedRecyclerAdapter);
 
-         navigationView= findViewById(R.id.nav_view);
-        View headerView=navigationView.getHeaderView(0);
+        navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
 
-        navEmail=headerView.findViewById(R.id.headerEmail);
+        navEmail = headerView.findViewById(R.id.headerEmail);
         navEmail.setText(firebaseUser.getEmail());
-        navName=headerView.findViewById(R.id.headerName);
-        navName.setText(LoginActivity.currentUser.getName()+" "+LoginActivity.currentUser.getSurname());
+        navName = headerView.findViewById(R.id.headerName);
+        navName.setText(LoginActivity.currentUser.getName() + " " + LoginActivity.currentUser.getSurname());
         //feedRecyclerAdapter.notifyDataSetChanged();
-         toolbar=findViewById(R.id.toolbarFeed);
+        toolbar = findViewById(R.id.toolbarFeed);
         setSupportActionBar(toolbar);
-        drawerLayout=findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
 
         toggle.syncState();
@@ -89,91 +91,103 @@ public class CourseFeedActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_logout:
                 firebaseAuth.signOut();
-                Intent intentToLogin=new Intent(CourseFeedActivity.this,LoginActivity.class);
+                Intent intentToLogin = new Intent(CourseFeedActivity.this, LoginActivity.class);
                 startActivity(intentToLogin);
                 finish();
                 return false;
             case R.id.nav_messages:
-                Intent intentToMessage=new Intent(CourseFeedActivity.this, MessageActivity.class);
+                Intent intentToMessage = new Intent(CourseFeedActivity.this, MessageActivity.class);
                 startActivity(intentToMessage);
                 finish();
                 return false;
             case R.id.nav_assignments:
-                Intent intentToAssignment=new Intent(CourseFeedActivity.this, AssignmentActivity.class);
+                Intent intentToAssignment = new Intent(CourseFeedActivity.this, AssignmentActivity.class);
                 startActivity(intentToAssignment);
                 return false;
-            default :
+            default:
                 return false;
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else{
+        } else {
 
             super.onBackPressed();
         }
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
-        if(LoginActivity.currentUser!=null &&  LoginActivity.currentUser.isStudent()){
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (LoginActivity.currentUser != null && LoginActivity.currentUser.isStudent()) {
             MenuItem addCourse = menu.findItem(R.id.AddCourseMenu);
             addCourse.setVisible(false);
 
-        }
-        else if (LoginActivity.currentUser!=null &&  !LoginActivity.currentUser.isStudent()){
+        } else if (LoginActivity.currentUser != null && !LoginActivity.currentUser.isStudent()) {
             MenuItem addCourse = menu.findItem(R.id.enrollMenu);
             addCourse.setVisible(false);
         }
         return true;
     }
+
     //Connecting menu to this activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Connecting xml file
 
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.cengonline_options_menu,menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.cengonline_options_menu, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case  R.id.AddCourseMenu:
-                Intent intentToAddCourse=new Intent(CourseFeedActivity.this, AddCourseActivity.class);
+        switch (item.getItemId()) {
+            case R.id.AddCourseMenu:
+                Intent intentToAddCourse = new Intent(CourseFeedActivity.this, AddCourseActivity.class);
                 startActivity(intentToAddCourse);
                 return true;
             case R.id.enrollMenu:
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-                alert.setTitle("Enroll To Course");
-                alert.setMessage("Enter Course ID");
+                alert.setTitle("Join class");
+                alert.setMessage("Ask your teacher for the class code, then enter it here.");
 
                 final EditText input = new EditText(this);
+                input.setBackgroundResource(R.drawable.popup_edittext_style);
+                input.setHint("Enter class code here");
+                input.setPadding(65,50,0,0);
                 alert.setView(input);
 
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        CollectionReference collectionReference=firebaseFirestore.collection("Courses");
-                        collectionReference.whereEqualTo("courseID",input.getText().toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()) {
-                                    Map<String, Object> data = snapshot.getData();
-                                    String course=(String)data.get("courseName");
-                                    System.out.println(course);
+                        if (LoginActivity.allCourses.contains(input.getText().toString())|| input.getText().toString().matches("")) {
+                            if(input.getText().toString().matches(""))
+                                Toast.makeText(CourseFeedActivity.this, "Verify class code!", Toast.LENGTH_LONG).show();
+                            else
+                            Toast.makeText(CourseFeedActivity.this, "You are already enrolled to that course!", Toast.LENGTH_LONG).show();
 
-                                  //kursa kayıt olma.
+                        } else {
+                            CollectionReference collectionReference = firebaseFirestore.collection("Courses");
+                            collectionReference.whereEqualTo("courseID", input.getText().toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if (queryDocumentSnapshots.isEmpty()) {
+
+                                        Toast.makeText(CourseFeedActivity.this, "No courses found with that ID. Please check your class code!", Toast.LENGTH_LONG).show();
+                                    }
+                                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                        Map<String, Object> data = snapshot.getData();
+                                        String course = (String) data.get("courseName");
+                                        System.out.println(course);
+
+                                        //kursa kayıt olma.
                                         CollectionReference collectionReference = firebaseFirestore.collection("Course_User");
                                         HashMap<String, String> enrollUser = new HashMap<>();
                                         enrollUser.put("email", firebaseUser.getEmail());
@@ -183,36 +197,17 @@ public class CourseFeedActivity extends AppCompatActivity implements NavigationV
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                 LoginActivity.allCourses.add(input.getText().toString());
-                                                Toast.makeText(CourseFeedActivity.this,"Enrolled", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(CourseFeedActivity.this, "Enrolled", Toast.LENGTH_LONG).show();
                                                 feedRecyclerAdapter.notifyDataSetChanged();
                                             }
                                         });
-                            /*if (LoginActivity.currentUser.isStudent()) {
-                                LoginActivity.currentUser.enrollCourse(course);
-                                course.addStudentToCourse((Student) LoginActivity.currentUser);
-                            } else {
-                                course.setTeacher((Teacher) LoginActivity.currentUser);
-                            }*/
 
 
-
+                                    }
                                 }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                 if(LoginActivity.allCourses.contains(input.getText().toString())){
+                            });
 
-                                    Toast.makeText(CourseFeedActivity.this, "You are already enrolled to that course!", Toast.LENGTH_LONG).show();
-
-                                }
-                                 else {
-
-                                     Toast.makeText(CourseFeedActivity.this, "No courses found with that ID. Please check your Course ID!", Toast.LENGTH_LONG).show();
-                                 }
-                            }
-                        });
-
+                        }
                     }
                 });
 
@@ -223,11 +218,10 @@ public class CourseFeedActivity extends AppCompatActivity implements NavigationV
                 });
                 alert.show();
 
-            return true;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
 
 
     }

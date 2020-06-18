@@ -19,6 +19,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.plhomework.Activities.Assignment.AssignmentActivity;
+import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.Adapters.AssignmentRecyclerAdapter;
 import com.example.plhomework.Adapters.PostRecyclerAdapter;
 import com.example.plhomework.Model.Comment;
@@ -60,20 +61,28 @@ public class StreamActivity extends AppCompatActivity {
         teacherEmail = intent.getStringExtra("teacherEmail");
         iniPopup();
         firebaseFirestore = FirebaseFirestore.getInstance();
+
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popAddPost.show();
-            }
-        });
-        //TODO intent ile course alınacak, recyclerViewAdapter oluşturup bağla, posts'u oluştur. posts'un içine commentleri de ekle
+        if(!LoginActivity.currentUser.isStudent()){
+
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popAddPost.show();
+                }
+            });
+        }
+        else{
+            fab.setVisibility(View.INVISIBLE);
+        }
 
         System.out.println("burdayım işte");
+
         firebaseFirestore.collection("Courses").whereEqualTo("courseID", courseID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {//her post için gez
+                for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                    final String courseDBID=documentSnapshot.getId();//her post için gez
                     firebaseFirestore.collection("Courses").document(documentSnapshot.getId()).collection("Posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -81,37 +90,36 @@ public class StreamActivity extends AppCompatActivity {
                                 for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {//her post için gez
 
                                     Map<String, Object> data = documentSnapshot.getData();
-                                    System.out.println("postTitleları:" + data.get("postTitle"));
-                                    final Post post = new Post((String) data.get("postID"), (String) data.get("postTitle"), (String) data.get("date"), (String) data.get("postContext"), teacherEmail);
-                                    firebaseFirestore.collection("Courses").document(courseID).collection("Posts").document((String) data.get("postID")).collection("Comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    final Post post = new Post((String) data.get("postID"), (String) data.get("postTitle"),(String) data.get("postContext"),  (String) data.get("date"), teacherEmail);
+
+                                    StreamActivity.posts.add(post);//tüm postları ekle
+                                    firebaseFirestore.collection("Courses").document(courseDBID).collection("Posts").document((String) data.get("postID")).collection("Comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                                             if (!task.getResult().isEmpty()) {//comment var demektir
                                                 for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {//her comment için gez
                                                     Map<String, Object> data = documentSnapshot.getData();
+                                                    System.out.println(StreamActivity.posts.indexOf(post));
+
                                                     post.addCommentToPost(new Comment((String) data.get("commenterEmail"), (String) data.get("commentContext"), (String) data.get("commentDate")));
                                                 }
 
                                             }
-                                            System.out.println("say beni");
-                                            StreamActivity.posts.add(post);//tüm postları ekle
-                                            //TODO buralarda karışıyor
+
+
+                                            RecyclerView recyclerView = findViewById(R.id.postRecyclerView);
+                                            recyclerView.setLayoutManager(new LinearLayoutManager(StreamActivity.this));
+                                            PostRecyclerAdapter postRecyclerAdapter = new PostRecyclerAdapter(courseID, StreamActivity.this);
+                                            recyclerView.setAdapter(postRecyclerAdapter);
                                         }
                                     });
                                 }
-                                System.out.println("burdayım işte");
 
                             }
                         }
                     });
                 }
-                //TODO bu arkadaşlar erken çalışıyor. buraya bak!!!!!!!!!!!
-                System.out.println("ben çalıştım");
-                RecyclerView recyclerView = findViewById(R.id.postRecyclerView);
-                recyclerView.setLayoutManager(new LinearLayoutManager(StreamActivity.this));
-                PostRecyclerAdapter postRecyclerAdapter = new PostRecyclerAdapter(courseID, StreamActivity.this);
-                recyclerView.setAdapter(postRecyclerAdapter);
 
             }
         });

@@ -1,18 +1,30 @@
 package com.example.plhomework.Adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.plhomework.Activities.Assignment.AssignmentDetailStudentActivity;
+import com.example.plhomework.Activities.Assignment.AssignmentDetailTeacherActivity;
+import com.example.plhomework.Activities.Course.PostDialogFragment;
 import com.example.plhomework.Activities.Course.StreamActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.Model.Comment;
@@ -20,6 +32,7 @@ import com.example.plhomework.Model.Post;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,22 +50,12 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
     String courseID;
     FirebaseFirestore firebaseFirestore;
     String teacherEmail;
-
     Context context;
 
     public PostRecyclerAdapter(String courseID, Context context) {
         this.courseID = courseID;
         this.context = context;
         firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("Courses").whereEqualTo("courseID", courseID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                    Map<String, Object> data = snapshot.getData();
-                    teacherEmail = (String) data.get("teacherEmail");
-                }
-            }
-        });
 
     }
 
@@ -65,9 +68,21 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
         return new PostRecyclerAdapter.PostHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull final PostRecyclerAdapter.PostHolder holder, final int position) {
-        holder.posterEmail.setText(teacherEmail);
+
+        firebaseFirestore.collection("Courses").whereEqualTo("courseID", courseID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                    Map<String, Object> data = snapshot.getData();
+                    teacherEmail = (String) data.get("teacherEmail");
+                }
+
+                holder.posterEmail.setText(teacherEmail);
+            }
+        });
         holder.postTitle.setText(StreamActivity.posts.get(position).getPostTitle());
         holder.postContext.setText(StreamActivity.posts.get(position).getPostContext());
         holder.postDate.setText(StreamActivity.posts.get(position).getPostDate());
@@ -88,28 +103,43 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
                                 HashMap<String, String> put = new HashMap<>();
                                 put.put("commenterEmail", LoginActivity.currentUser.getEmail());
                                 put.put("commentContext", holder.commentText.getText().toString());
-                                put.put("commentDate", new SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss", Locale.getDefault()).format(new Date()));
+                                put.put("commentDate", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                                 String uniqueID = UUID.randomUUID().toString();
                                 put.put("commentID", uniqueID);
                                 firebaseFirestore.collection("Courses").document(snapshot.getId()).collection("Posts").document(StreamActivity.posts.get(position).getPostID()).collection("Comments").document(uniqueID).set(put);
                                 commentRecyclerAdapter.notifyDataSetChanged();
                             }
+                            holder.commentText.setText("");
                         }
                     });
                 }
 
             }
         });
+
+
+
+        if(!LoginActivity.currentUser.isStudent()) {
+            //aşağıdaki kod mesajlara tıklanırsa ne olacağıdır.
+            holder.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void onItemClickListener(View v, final int position) {
+                    PostDialogFragment myFragment=new PostDialogFragment(context, position,courseID,teacherEmail);
+                    FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+
+                    myFragment.show(manager,"My Dialog");
+                }
+            });
+        }
     }
 
 
     @Override
     public int getItemCount() {
-        System.out.println("postrecycleradaptersize:"+StreamActivity.posts.size());
         return StreamActivity.posts.size();
     }
 
-    public class PostHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class PostHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
         ItemClickListener itemClickListener;
         TextView posterEmail, postDate, postTitle, postContext;
         RecyclerView recyclerView;
@@ -125,16 +155,15 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
             recyclerView = itemView.findViewById(R.id.commentRecyclerView);
             commentText = itemView.findViewById(R.id.addComment);
             sendComment = itemView.findViewById(R.id.sendComment);
-            itemView.setOnClickListener(this);
+            if(!LoginActivity.currentUser.isStudent()){itemView.setOnClickListener(this);}
         }
 
         @Override
         public void onClick(View v) {
-            this.itemClickListener.onItemClickListener(v, getLayoutPosition());
+            if(!LoginActivity.currentUser.isStudent()){this.itemClickListener.onItemClickListener(v,getLayoutPosition());}
         }
-
-        public void setItemClickListener(ItemClickListener ic) {
-            this.itemClickListener = ic;
+        public void setItemClickListener(ItemClickListener ic){
+            if(!LoginActivity.currentUser.isStudent()){this.itemClickListener=ic;}
         }
     }
 }

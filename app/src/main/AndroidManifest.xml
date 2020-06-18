@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.Course.EditPostActivity"
+
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activities.Course.StreamActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".Activities.Assignment.EditAssignmentActivity" />
         <activity
             android:name=".Activities.Assignment.AssignmentDetailTeacherActivity"

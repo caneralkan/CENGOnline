@@ -11,6 +11,7 @@ public class Post {
         this.postContext = postContext;
         this.postDate = postDate;
         this.teacherEmail = teacherEmail;
+        this.comments=new ArrayList<>();
     }
     public void addCommentToPost(Comment comment){
         this.comments.add(comment);
