@@ -88,4 +88,5 @@ public class AddCourseActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
     }
+
 }

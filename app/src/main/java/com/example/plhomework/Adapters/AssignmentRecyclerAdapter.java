@@ -13,13 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.plhomework.Activities.Assignment.AssignmentDetailStudentActivity;
 import com.example.plhomework.Activities.Assignment.AssignmentDetailTeacherActivity;
 import com.example.plhomework.Activities.LoginActivity;
-import com.example.plhomework.OOPFiles.Assignment;
+import com.example.plhomework.Model.Assignment;
 import com.example.plhomework.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 

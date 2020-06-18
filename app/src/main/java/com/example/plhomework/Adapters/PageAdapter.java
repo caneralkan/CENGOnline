@@ -3,18 +3,11 @@ package com.example.plhomework.Adapters;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.plhomework.Activities.Assignment.AssignmentFragment;
 import com.example.plhomework.Activities.Assignment.SubmittedWorksFragment;
-import com.example.plhomework.OOPFiles.Assignment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.example.plhomework.Model.Assignment;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
     Assignment assignment;

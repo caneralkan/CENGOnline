@@ -1,6 +1,5 @@
 package com.example.plhomework.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plhomework.Activities.Assignment.AssignmentDetailTeacherActivity;
-import com.example.plhomework.Activities.Assignment.SubmittedWorksFragment;
-import com.example.plhomework.OOPFiles.Assignment;
+import com.example.plhomework.Model.Assignment;
 import com.example.plhomework.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 public class AssignmentSubmissionRecyclerAdapter extends RecyclerView.Adapter<AssignmentSubmissionRecyclerAdapter.AssignmentSubmissionRecyclerHolder> {
 

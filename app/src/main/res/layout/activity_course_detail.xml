@@ -11,8 +11,7 @@
         android:id="@+id/imagelv"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_class_black_24dp"
-        />
+        android:src="@drawable/ic_class_black_24dp" />
 
     <TextView
         android:id="@+id/courseIDad"

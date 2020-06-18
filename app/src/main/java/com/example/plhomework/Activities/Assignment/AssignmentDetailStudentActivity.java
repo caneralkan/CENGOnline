@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plhomework.Activities.LoginActivity;
-import com.example.plhomework.OOPFiles.Assignment;
+import com.example.plhomework.Model.Assignment;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

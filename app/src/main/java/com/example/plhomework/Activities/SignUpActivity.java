@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.example.plhomework.Activities.Course.CourseFeedActivity;
 import com.example.plhomework.R;
-import com.example.plhomework.OOPFiles.Student;
-import com.example.plhomework.OOPFiles.Teacher;
-import com.example.plhomework.OOPFiles.User;
+import com.example.plhomework.Model.Student;
+import com.example.plhomework.Model.Teacher;
+import com.example.plhomework.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;

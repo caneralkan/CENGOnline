@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plhomework.Activities.Announcement.AnnouncementDetailActivity;
-import com.example.plhomework.OOPFiles.Announcement;
+import com.example.plhomework.Model.Announcement;
 import com.example.plhomework.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 

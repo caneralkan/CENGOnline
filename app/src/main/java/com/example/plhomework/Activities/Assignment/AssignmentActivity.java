@@ -21,7 +21,7 @@ import com.example.plhomework.Activities.Course.CourseFeedActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.Activities.Message.MessageActivity;
 import com.example.plhomework.Adapters.AssignmentRecyclerAdapter;
-import com.example.plhomework.OOPFiles.Assignment;
+import com.example.plhomework.Model.Assignment;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

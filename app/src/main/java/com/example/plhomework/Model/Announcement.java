@@ -1,4 +1,4 @@
-package com.example.plhomework.OOPFiles;
+package com.example.plhomework.Model;
 
 public class Announcement {
     String context,title,courseID,date,ID;

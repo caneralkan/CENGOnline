@@ -16,11 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.plhomework.Activities.Announcement.AnnouncementDetailActivity;
-import com.example.plhomework.Activities.Course.CourseDetailActivity;
 import com.example.plhomework.Activities.LoginActivity;
 import com.example.plhomework.Adapters.PageAdapter;
-import com.example.plhomework.OOPFiles.Assignment;
+import com.example.plhomework.Model.Assignment;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,6 +53,7 @@ public class AssignmentDetailTeacherActivity extends AppCompatActivity {
         firebaseFirestore= FirebaseFirestore.getInstance();
         firebaseAuth= FirebaseAuth.getInstance();
         Toolbar toolbar = findViewById(R.id.toolbarAssignmentTeacher);
+        toolbar.setTitle(assignment.getAssignmentTitle());
         setSupportActionBar(toolbar);
 
         firebaseFirestore.collection("Course_Assignment").document(assignment.getAssignmentID()).collection("Submits").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

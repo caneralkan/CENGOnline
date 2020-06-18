@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Course.AddCourseActivity">
+    tools:context=".Activities.Course.EditCourseActivity">
 
 
     <LinearLayout
@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_button_register"
             android:onClick="editCourseClicked"
+
             android:text="EDIT COURSE"
             android:textColor="@color/colorText" />
 

@@ -6,16 +6,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plhomework.Activities.Announcement.AddAnnouncementActivity;
 import com.example.plhomework.Activities.LoginActivity;
-import com.example.plhomework.OOPFiles.Announcement;
+import com.example.plhomework.Model.Announcement;
 import com.example.plhomework.Adapters.AnnouncementRecyclerAdapter;
 import com.example.plhomework.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +35,7 @@ import java.util.Map;
 public class CourseDetailActivity extends AppCompatActivity {
     TextView courseNamead,courseIDad;
     FirebaseFirestore firebaseFirestore;
+    ImageView imageView;
     static AnnouncementRecyclerAdapter announcementRecyclerAdapter;
     static ArrayList<Announcement> announcements;
     @Override
@@ -74,6 +78,28 @@ public class CourseDetailActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+
+        imageView=findViewById(R.id.imagelv);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Intent intent2=new Intent(CourseDetailActivity.this,StreamActivity.class);
+                firebaseFirestore.collection("Courses").whereEqualTo("courseID",courseIDad.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {//teacherEmail almak için
+                        for (DocumentSnapshot snapshot:task.getResult().getDocuments()) {
+                            Map<String, Object> data = snapshot.getData();
+                            intent2.putExtra("courseID",courseIDad.getText().toString());
+                            intent2.putExtra("teacherEmail",(String)data.get("teacherEmail"));
+                        }
+                        startActivity(intent2);
+                    }
+                });
+
             }
         });
     }
