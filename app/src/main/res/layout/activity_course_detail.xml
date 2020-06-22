@@ -12,7 +12,14 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_class_black_24dp" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click image for stream"
+        android:textSize="15sp"
+        android:textColor="#39C890"
+        android:textStyle="bold"
+        android:layout_below="@+id/imagelv" />
     <TextView
         android:id="@+id/courseIDad"
         android:layout_width="wrap_content"
