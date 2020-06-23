@@ -16,10 +16,7 @@ public class Post {
     public void addCommentToPost(Comment comment){
         this.comments.add(comment);
     }
-    public void removeComment(Comment comment){
-        if(comments.contains(comment))
-        this.comments.remove(comment);
-    }
+
 
     public ArrayList<Comment> getComments() {
         return comments;
@@ -52,16 +49,4 @@ public class Post {
     public String getPostDate() {
         return postDate;
     }
-
-    public void setPostDate(String postDate) {
-        this.postDate = postDate;
-    }
-
-    public String getTeacherEmail() {
-        return teacherEmail;
-    }
-
-    public void setTeacherEmail(String teacherEmail) {
-        this.teacherEmail = teacherEmail;
-    }
-}
+ }

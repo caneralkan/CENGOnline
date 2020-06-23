@@ -27,10 +27,6 @@ public abstract class User {
         return isStudent;
     }
 
-    public void setStudent(boolean student) {
-        isStudent = student;
-    }
-
     public String getName() {
         return name;
     }

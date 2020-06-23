@@ -61,14 +61,17 @@ public class CourseFeedActivity extends AppCompatActivity implements NavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        //init firebase variables
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        //init recyclerview
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         feedRecyclerAdapter = new FeedRecyclerAdapter(CourseFeedActivity.this);
         recyclerView.setAdapter(feedRecyclerAdapter);
-
+        //init navigation view
         navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
@@ -76,7 +79,6 @@ public class CourseFeedActivity extends AppCompatActivity implements NavigationV
         navEmail.setText(firebaseUser.getEmail());
         navName = headerView.findViewById(R.id.headerName);
         navName.setText(LoginActivity.currentUser.getName() + " " + LoginActivity.currentUser.getSurname());
-        //feedRecyclerAdapter.notifyDataSetChanged();
         toolbar = findViewById(R.id.toolbarFeed);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -179,7 +181,6 @@ public class CourseFeedActivity extends AppCompatActivity implements NavigationV
                                 @Override
                                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                     if (queryDocumentSnapshots.isEmpty()) {
-
                                         Toast.makeText(CourseFeedActivity.this, "No courses found with that ID. Please check your class code!", Toast.LENGTH_LONG).show();
                                     }
                                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {

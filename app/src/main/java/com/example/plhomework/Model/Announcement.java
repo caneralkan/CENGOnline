@@ -43,11 +43,4 @@ public class Announcement {
         return ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 }
